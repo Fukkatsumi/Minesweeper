@@ -5,17 +5,13 @@ package com.minesweeper;
  * Console version
  *
  * created by Fukkatsumi
- * last update 18.03.19
+ * last update 02.04.19
  */
 
 public class Minesweeper {
     public static void main(String... args){
-        start();
+        Controller game = new Controller();
+        game.start();
     }
 
-    public static void start(){
-
-        //code..
-
-    }
 }
