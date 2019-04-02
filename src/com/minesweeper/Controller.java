@@ -9,16 +9,17 @@ public class Controller {
     private static Logger log = Logger.getLogger(Controller.class.getName());
     private static Model model = new Model();
     public void start(){
-        View.showMenu();
         setMode();
     }
 
     public void setMode() {
         while (true) {
+            View.showMenu();
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             try {
                 switch (reader.readLine()) {
                     case "s":
+                        View.showGame();
                         break;
                     case "c":
                         View.showSettings();
@@ -45,11 +46,11 @@ public class Controller {
                 switch (reader.readLine()) {
                     case "f":
                         System.out.println("Input the field size:");
-                        Settings.setFieldSize(Integer.parseInt(reader.readLine()));
+                        Constants.setFieldSize(Integer.parseInt(reader.readLine()));
                         break;
                     case "b":
                         System.out.println("Input the bomb count:");
-                        Settings.setBombCount(Integer.parseInt(reader.readLine()));
+                        Constants.setBombCount(Integer.parseInt(reader.readLine()));
                         break;
                     case "q":
                         break;
@@ -78,7 +79,7 @@ public class Controller {
     Turn N:
     Set cords:
     /input/
-    To open press 'o'
+    To open field press 'o'
     To set flag press 'f'
     To cancel press 'c'
     /input/
