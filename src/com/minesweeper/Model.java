@@ -6,7 +6,47 @@ import java.util.logging.Logger;
 
 public class Model {
     private static Logger log = Logger.getLogger(Model.class.getName());
-    private Map<Point, Character> field;
+    private Map<Point, Field> board;
 
+    public void setBombs(){
 
+    }
+
+    public void bombsNearby(){
+
+    }
+
+    public void click(Point p){
+
+    }
+}
+
+class Field{
+    private char type;
+    private boolean isVisible;
+    private boolean isClicked;
+
+    public char getType() {
+        return type;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
+    }
+
+    public boolean isClicked() {
+        return isClicked;
+    }
+
+    public void setClicked(boolean clicked) {
+        isClicked = clicked;
+    }
+
+    public Field(char type) {
+        this.type = type;
+    }
 }
