@@ -39,4 +39,8 @@ public class View {
             System.out.print("\n");
         }
     }
+
+    public static void clicked(){
+        System.out.println("****** You already opened this field******");
+    }
 }

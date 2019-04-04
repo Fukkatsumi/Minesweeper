@@ -17,12 +17,15 @@ public class Model {
     }
 
     public void click(Point p){
-
+        if(board.get(p).isClicked()){
+            View.clicked();
+        }
     }
 }
 
 class Field{
     private char type;
+    private final char defChar = '*';
     private boolean isVisible;
     private boolean isClicked;
 
