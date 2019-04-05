@@ -17,20 +17,36 @@ public class Model {
     }
 
     public void click(Point p){
-        if(board.get(p).isClicked()){
+        Field field = board.get(p);
+        if(field.isClicked()){
             View.clicked();
+        }else {
+            if(field.getType() == Constants.BOMB){
+                showAllBombs();
+                View.gameOver();
+            }else {
+
+            }
         }
+    }
+
+    public void showAllBombs(){
+
     }
 }
 
 class Field{
     private char type;
-    private final char defChar = '*';
+    private char state = Constants.HIDDEN;
     private boolean isVisible;
     private boolean isClicked;
 
     public char getType() {
         return type;
+    }
+
+    public void setState(char state) {
+        this.state = state;
     }
 
     public boolean isVisible() {

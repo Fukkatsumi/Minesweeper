@@ -7,7 +7,10 @@ import java.util.logging.Logger;
 
 public class Controller {
     private static Logger log = Logger.getLogger(Controller.class.getName());
+    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
     private static Model model = new Model();
+
     public void start(){
         setMode();
     }
@@ -15,17 +18,16 @@ public class Controller {
     public void setMode() {
         while (true) {
             View.showMenu();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             try {
                 switch (reader.readLine()) {
                     case "s":
-                        View.showGame();
+                        turn();
                         break;
                     case "c":
-                        View.showSettings();
                         changeSettings();
                         break;
                     case "e":
+                        reader.close();
                         System.exit(0);
                         break;
                     default:
@@ -37,12 +39,41 @@ public class Controller {
         }
     }
 
+    private void turn(){
+        while (true) {
+            View.showGame();
+            System.out.println("Turn " + Constants.turnNumber + ":\n" +
+                    "Set cords:" +
+                    "x = ");
+            try {
+                int x = Integer.parseInt(reader.readLine());
+
+                System.out.println("y = ");
+                int y = Integer.parseInt(reader.readLine());
+                System.out.println("    To open field press 'o'\n" +
+                        "    To set flag press 'f'\n" +
+                        "    To cancel press 'c'\n ");
+                switch (reader.readLine()){
+                    case "o":
+                        break;
+                    case "f":
+                        break;
+                    case "c":
+                        break;
+                    default:
+                        System.out.println("Wrong parameter!");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void changeSettings() {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         boolean flag = false;
         while (!flag) {
-            flag = true;
             try {
+                View.showSettings();
                 switch (reader.readLine()) {
                     case "f":
                         System.out.println("Input the field size:");
@@ -53,6 +84,7 @@ public class Controller {
                         Constants.setBombCount(Integer.parseInt(reader.readLine()));
                         break;
                     case "q":
+                        flag = true;
                         break;
                     default:
                         System.out.println("Wrong parameter!");
@@ -60,6 +92,7 @@ public class Controller {
                 }
             } catch (IOException e) {
                 log.warning(e.getMessage());
+                System.exit(-1);
             }
         }
     }

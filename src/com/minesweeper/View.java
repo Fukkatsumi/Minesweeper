@@ -9,7 +9,7 @@ public class View {
     }
 
     public static void showSettings(){
-        System.out.println("============== Constants ==============\n" +
+        System.out.println("============== Settings ==============\n" +
                 "==============> To change field size press 'f'\n" +
                 "==============> To change bombs count 'b'\n" +
                 "==============> To quit press 'q'");
@@ -20,8 +20,6 @@ public class View {
                 "======>Restart - 'r'\n" +
                 "======>New game - 'n'");
         showBoard();
-        System.out.println("Turn " + Constants.turnNumber + ":\n" +
-                "Set cords:");
     }
 
     public static void showBoard(){
@@ -42,5 +40,14 @@ public class View {
 
     public static void clicked(){
         System.out.println("****** You already opened this field******");
+    }
+
+    public static void gameOver(){
+        System.out.printf("============== Game over! ==============\n" +
+                "Turns: %d\n" +
+                "Your score: %d\n" +
+                "==============> To exit press 'e'\n" +
+                "==============> To restart game press 'r'\n" +
+                "==============> To return to main menu press'm'\n", Constants.turnNumber, Constants.score);
     }
 }
