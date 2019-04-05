@@ -1,28 +1,28 @@
 package com.minesweeper;
 
 public class View {
-    public static void showMenu(){
+    public void showMenu(){
         System.out.println("============== Minesweeper ver.1.0 ==============\n" +
                 "==============> To start game press 's'\n" +
                 "==============> To change settings press 'c'\n" +
                 "==============> To exit press 'e'");
     }
 
-    public static void showSettings(){
+    public void showSettings(){
         System.out.println("============== Settings ==============\n" +
                 "==============> To change field size press 'f'\n" +
                 "==============> To change bombs count 'b'\n" +
                 "==============> To quit press 'q'");
     }
 
-    public static void showGame(){
+    public void showGame(){
         System.out.println("======>Quit - 'q'\n" +
                 "======>Restart - 'r'\n" +
                 "======>New game - 'n'");
         showBoard();
     }
 
-    public static void showBoard(){
+    public void showBoard(){
         char ch = '*';
         System.out.print("  ");
         for(int i = 0; i < Constants.fieldSize; i++){
@@ -38,11 +38,11 @@ public class View {
         }
     }
 
-    public static void clicked(){
+    public void showClicked(){
         System.out.println("****** You already opened this field******");
     }
 
-    public static void gameOver(){
+    public void showGameOver(){
         System.out.printf("============== Game over! ==============\n" +
                 "Turns: %d\n" +
                 "Your score: %d\n" +

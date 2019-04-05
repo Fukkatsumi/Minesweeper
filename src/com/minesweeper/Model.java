@@ -16,18 +16,15 @@ public class Model {
 
     }
 
-    public void click(Point p){
-        Field field = board.get(p);
-        if(field.isClicked()){
-            View.clicked();
-        }else {
+    public boolean clicked(Point p){
+        return board.get(p).isClicked();
+            /*make an another method
             if(field.getType() == Constants.BOMB){
                 showAllBombs();
-                View.gameOver();
             }else {
 
             }
-        }
+            */
     }
 
     public void showAllBombs(){

@@ -9,7 +9,8 @@ public class Controller {
     private static Logger log = Logger.getLogger(Controller.class.getName());
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    private static Model model = new Model();
+    private Model model = new Model();
+    private View view = new View();
 
     public void start(){
         setMode();
@@ -17,7 +18,7 @@ public class Controller {
 
     public void setMode() {
         while (true) {
-            View.showMenu();
+            view.showMenu();
             try {
                 switch (reader.readLine()) {
                     case "s":
@@ -41,7 +42,7 @@ public class Controller {
 
     private void turn(){
         while (true) {
-            View.showGame();
+            view.showGame();
             System.out.println("Turn " + Constants.turnNumber + ":\n" +
                     "Set cords:" +
                     "x = ");
@@ -73,7 +74,7 @@ public class Controller {
         boolean flag = false;
         while (!flag) {
             try {
-                View.showSettings();
+                view.showSettings();
                 switch (reader.readLine()) {
                     case "f":
                         System.out.println("Input the field size:");
