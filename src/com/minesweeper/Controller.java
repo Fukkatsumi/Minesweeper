@@ -1,5 +1,6 @@
 package com.minesweeper;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,10 +14,6 @@ public class Controller {
     private View view = new View();
 
     public void start(){
-        setMode();
-    }
-
-    public void setMode() {
         while (true) {
             view.showMenu();
             try {
@@ -41,14 +38,13 @@ public class Controller {
     }
 
     private void turn(){
-        while (true) {
+        while (!model.isGameOver()) {
             view.showGame();
             System.out.println("Turn " + Constants.turnNumber + ":\n" +
                     "Set cords:" +
                     "x = ");
             try {
                 int x = Integer.parseInt(reader.readLine());
-
                 System.out.println("y = ");
                 int y = Integer.parseInt(reader.readLine());
                 System.out.println("    To open field press 'o'\n" +
@@ -56,6 +52,10 @@ public class Controller {
                         "    To cancel press 'c'\n ");
                 switch (reader.readLine()){
                     case "o":
+                        Point p = new Point(x,y);
+                        if(!model.clicked(p)){
+                            model.open(p);
+                        }
                         break;
                     case "f":
                         break;
