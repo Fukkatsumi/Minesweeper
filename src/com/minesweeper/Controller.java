@@ -19,37 +19,37 @@ public class Controller {
             try {
                 switch (reader.readLine()) {
                     case "s":
-                        turn();
+                        game();
                         break;
                     case "c":
-                        changeSettings();
+                        settings();
                         break;
                     case "e":
                         reader.close();
                         System.exit(0);
                         break;
                     default:
-                        System.out.println("Wrong mode!");
+                        view.showWarning();
                 }
             } catch (IOException e) {
                 log.warning(e.getMessage());
+                System.exit(-1);
             }
         }
     }
 
-    private void turn(){
+    private void game(){
         while (!model.isGameOver()) {
             view.showGame();
-            System.out.println("Turn " + Constants.turnNumber + ":\n" +
-                    "Set cords:" +
-                    "x = ");
+            view.showBoard(model.getBoard());
             try {
+                System.out.println("Turn " + Constants.turnNumber + ":\n" +
+                        "Set cords:" +
+                        "x = ");
                 int x = Integer.parseInt(reader.readLine());
                 System.out.println("y = ");
                 int y = Integer.parseInt(reader.readLine());
-                System.out.println("    To open field press 'o'\n" +
-                        "    To set flag press 'f'\n" +
-                        "    To cancel press 'c'\n ");
+                view.showActions();
                 switch (reader.readLine()){
                     case "o":
                         Point p = new Point(x,y);
@@ -62,25 +62,51 @@ public class Controller {
                     case "c":
                         break;
                     default:
-                        System.out.println("Wrong parameter!");
+                        view.showWarning();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                log.warning(e.getMessage());
+                System.exit(-1);
             }
         }
     }
 
-    private void changeSettings() {
+    private void gameOver(){
+        while (true) {
+            view.showGameOver();
+            try{
+                switch (reader.readLine()){
+                    case "e":
+                        reader.close();
+                        System.exit(0);
+                        break;
+                    case "r":
+                        game();
+                        break;
+                    case "m":
+                        start();
+                        break;
+                    default:
+                        view.showWarning();
+                }
+            }catch (IOException e){
+                log.warning(e.getMessage());
+                System.exit(-1);
+            }
+        }
+    }
+
+    private void settings() {
         boolean flag = false;
         while (!flag) {
             try {
                 view.showSettings();
                 switch (reader.readLine()) {
-                    case "f":
-                        System.out.println("Input the field size:");
-                        Constants.setFieldSize(Integer.parseInt(reader.readLine()));
+                    case "s":
+                        System.out.println("Input the board size:");
+                        Constants.setBoardSize(Integer.parseInt(reader.readLine()));
                         break;
-                    case "b":
+                    case "c":
                         System.out.println("Input the bomb count:");
                         Constants.setBombCount(Integer.parseInt(reader.readLine()));
                         break;
@@ -88,7 +114,7 @@ public class Controller {
                         flag = true;
                         break;
                     default:
-                        System.out.println("Wrong parameter!");
+                        view.showWarning();
                         flag = !flag;
                 }
             } catch (IOException e) {

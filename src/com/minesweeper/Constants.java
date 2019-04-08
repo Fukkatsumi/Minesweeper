@@ -11,13 +11,13 @@ public class Constants {
     public static final char CHECKED = '^';
 
     /* OTHER */
-    public static int fieldSize = 5;
+    public static int boardSize = 5;
     public static int bombCount = 10;
     public static int turnNumber = 0;
     public static int score = 0;
 
-    public static void setFieldSize(int fieldSize) {
-        Constants.fieldSize = fieldSize;
+    public static void setBoardSize(int boardSize) {
+        Constants.boardSize = boardSize;
     }
 
     public static void setBombCount(int bombCount) {

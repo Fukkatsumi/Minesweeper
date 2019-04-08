@@ -5,7 +5,6 @@ package com.minesweeper;
  * Console version
  *
  * created by Fukkatsumi
- * last update 02.04.19
  */
 
 public class Minesweeper {

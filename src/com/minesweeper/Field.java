@@ -10,6 +10,10 @@ public class Field {
         return type;
     }
 
+    public char getState() {
+        return state;
+    }
+
     public void setState(char state) {
         this.state = state;
     }
@@ -26,8 +30,8 @@ public class Field {
         return isClicked;
     }
 
-    public void setClicked(boolean clicked) {
-        isClicked = clicked;
+    public void setClicked() {
+        isClicked = !isClicked;
     }
 
     public Field(char type) {
