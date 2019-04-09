@@ -69,6 +69,7 @@ public class Controller {
                 System.exit(-1);
             }
         }
+        gameOver();
     }
 
     private void gameOver(){

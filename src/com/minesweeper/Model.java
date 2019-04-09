@@ -16,33 +16,26 @@ public class Model {
     }
 
     public void newGame(){
-        board = new HashMap<>();
-        setBombs();
+        createBoard();
         fillBoard();
         gameOver = false;
     }
 
-    public void fillBoard(){
-        Point p;
-        for (int i = 0; i < Constants.boardSize; i++){
-            for (int j = 0; j < Constants.boardSize; j++){
-                p = new Point(i,j);
-                if(!board.containsKey(p)){
-                    board.put(p,bombsNearby(p));
-                }
-            }
-        }
+    public void createBoard() {
+        this.board = new HashMap<>();
     }
 
     public void setBombs(){
-        for (int i = 0; i < Constants.bombCount; i++){
+        int count = 0;
+        do{
             Random r = new Random();
-            int x = r.nextInt(Constants.boardSize);
-            int y = r.nextInt(Constants.boardSize);
+            int x = r.nextInt(Constants.boardSize + 1);
+            int y = r.nextInt(Constants.boardSize + 1);
             if(!board.containsKey(new Point(x,y))){
                 board.put(new Point(x,y), new Field(Constants.BOMB));
+                count++;
             }
-        }
+        }while (count != Constants.bombCount);
     }
 
     /* Finding bombs nearby
@@ -67,6 +60,19 @@ public class Model {
         return bombCount > 0? new Field((char) bombCount) : new Field(Constants.EMPTY);
     }
 
+    public void fillBoard(){
+        setBombs();
+        Point p;
+        for (int i = 0; i < Constants.boardSize; i++){
+            for (int j = 0; j < Constants.boardSize; j++){
+                p = new Point(i,j);
+                if(!board.containsKey(p)){
+                    board.put(p,bombsNearby(p));
+                }
+            }
+        }
+    }
+
     public boolean clicked(Point p){
         return board.get(p).isClicked();
     }
@@ -83,9 +89,11 @@ public class Model {
     public void flag(Point p){
         Field field = board.get(p);
         if(!field.isVisible()){
-            field.setState(Constants.CHECKED);
-        }else {
-
+            if(field.getState() == Constants.HIDDEN) {
+                field.setState(Constants.CHECKED);
+            }else {
+                field.setState(Constants.HIDDEN);
+            }
         }
     }
 
