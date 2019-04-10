@@ -25,7 +25,6 @@ public class View {
     }
 
     public void showBoard(Map<Point, Field> map){
-        //char ch = '*';
         System.out.print("  ");
         for(int i = 0; i < Constants.boardSize; i++){
             System.out.print((i+1) + " ");
@@ -34,8 +33,6 @@ public class View {
         for (int i = 0; i < Constants.boardSize; i++){
             System.out.print((i+1) + " ");
             for (int j = 0; j < Constants.boardSize; j++){
-               // System.out.print(ch + " ");
-
                 Point p = new Point(i,j);
                 if(!map.get(p).isVisible()) {
                     System.out.print(map.get(p).getState() + " ");
@@ -58,7 +55,7 @@ public class View {
     }
 
     public void showGetX(){
-        System.out.println("Set cords:" +
+        System.out.println("Set cords: \n" +
                 "x = ");
     }
 

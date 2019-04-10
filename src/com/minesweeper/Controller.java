@@ -19,6 +19,7 @@ public class Controller {
             try {
                 switch (reader.readLine()) {
                     case "s":
+                        model.newGame();
                         game();
                         break;
                     case "c":
@@ -45,9 +46,9 @@ public class Controller {
             try {
                 view.showTurn();
                 view.showGetX();
-                int x = Integer.parseInt(reader.readLine());
+                int x = Integer.parseInt(reader.readLine())-1;
                 view.showGetY();
-                int y = Integer.parseInt(reader.readLine());
+                int y = Integer.parseInt(reader.readLine())-1;
                 view.showActions();
                 switch (reader.readLine()){
                     case "o":
@@ -75,6 +76,7 @@ public class Controller {
 
     private void gameOver(){
         while (true) {
+            view.showBoard(model.getBoard());
             view.showGameOver();
             try{
                 switch (reader.readLine()){
@@ -83,6 +85,7 @@ public class Controller {
                         System.exit(0);
                         break;
                     case "r":
+                        model.newGame();
                         game();
                         break;
                     case "m":
@@ -125,26 +128,4 @@ public class Controller {
             }
         }
     }
-
-    /*
-    ======>Quit - 'q'
-    ======>Restart - 'r'
-    ======>New game - 'n'
-        1 2 3 4 5
-      -------------
-    1 | _ 1 x 1 _ |
-    2 | _ 1 2 2 _ |
-    3 | _ 1 ^ 1 _ |
-    4 | 1 2 1 1 1 |
-    5 | x 1 _ 1 _ |
-      -------------
-    Turn N:
-    Set cords:
-    /input/
-    To open field press 'o'
-    To set flag press 'f'
-    To cancel press 'c'
-    /input/
-
-     */
 }

@@ -57,7 +57,7 @@ public class Model {
                 }
             }
         }
-        return bombCount > 0? new Field((char) bombCount) : new Field(Constants.EMPTY);
+        return bombCount > 0? new Field(String.valueOf(bombCount).charAt(0)) : new Field(Constants.EMPTY);
     }
 
     public void fillBoard(){
@@ -83,6 +83,7 @@ public class Model {
             showAllBombs();
         }else {
             field.setClicked();
+            field.setVisible(true);
         }
     }
 
