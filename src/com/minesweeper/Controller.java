@@ -43,11 +43,10 @@ public class Controller {
             view.showGame();
             view.showBoard(model.getBoard());
             try {
-                System.out.println("Turn " + Constants.turnNumber + ":\n" +
-                        "Set cords:" +
-                        "x = ");
+                view.showTurn();
+                view.showGetX();
                 int x = Integer.parseInt(reader.readLine());
-                System.out.println("y = ");
+                view.showGetY();
                 int y = Integer.parseInt(reader.readLine());
                 view.showActions();
                 switch (reader.readLine()){
@@ -55,6 +54,8 @@ public class Controller {
                         Point p = new Point(x,y);
                         if(!model.clicked(p)){
                             model.open(p);
+                        }else {
+                            view.showClicked();
                         }
                         break;
                     case "f":

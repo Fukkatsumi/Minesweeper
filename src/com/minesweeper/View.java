@@ -53,6 +53,20 @@ public class View {
                 "    To cancel press 'c'\n ");
     }
 
+    public void showTurn(){
+        System.out.println("Turn " + Constants.turnNumber + ":");
+    }
+
+    public void showGetX(){
+        System.out.println("Set cords:" +
+                "x = ");
+    }
+
+    public void showGetY(){
+        System.out.println("y = ");
+
+    }
+
     public void showClicked(){
         System.out.println("****** You already opened this field******");
     }
