@@ -6,8 +6,8 @@ import java.util.Map;
 public class View {
     public void showMenu(){
         System.out.println("============== Minesweeper ver.1.0 ==============\n" +
-                "==============> To start game press 's'\n" +
-                "==============> To change settings press 'c'\n" +
+                "==============> To start game press 'g'\n" +
+                "==============> To change settings press 's'\n" +
                 "==============> To exit press 'e'");
     }
 

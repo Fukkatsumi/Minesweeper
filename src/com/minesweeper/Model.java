@@ -7,7 +7,6 @@ import java.util.Random;
 import java.util.logging.Logger;
 
 public class Model {
-    private static Logger log = Logger.getLogger(Model.class.getName());
     private Map<Point, Field> board;
     private boolean gameOver;
 
@@ -29,11 +28,11 @@ public class Model {
         int count = 0;
         do{
             Random r = new Random();
-            int x = r.nextInt(Constants.boardSize + 1);
-            int y = r.nextInt(Constants.boardSize + 1);
-            if(!board.containsKey(new Point(x,y))){
-                board.put(new Point(x,y), new Field(Constants.BOMB));
-                count++;
+            int x = r.nextInt(Constants.boardSize);
+            int y = r.nextInt(Constants.boardSize);
+            if (!board.containsKey(new Point(x,y))) {
+                    board.put(new Point(x, y), new Field(Constants.BOMB));
+                    count++;
             }
         }while (count != Constants.bombCount);
     }
@@ -46,12 +45,12 @@ public class Model {
     public Field bombsNearby(Point p){
         int bombCount = 0;
         for (int i = p.x - 1; i < p.x + 2; i++) {
+            if (i < 0 || i > Constants.boardSize) continue;
             for (int j = p.y - 1; j < p.y + 2; j++) {
-                if (i < 0 || i > Constants.boardSize) continue;
                 if (j < 0 || j > Constants.boardSize) continue;
-                if (i == p.x && i == p.y) continue;
+                if (i == p.x && j == p.y) continue;
                 if(board.containsKey(new Point(i,j))) {
-                    if (board.get(new Point(i, j)).getType() == Constants.BOMB) {
+                    if (board.get(new Point(i,j)).getType() == Constants.BOMB) {
                         bombCount++;
                     }
                 }
@@ -73,8 +72,8 @@ public class Model {
         }
     }
 
-    public boolean clicked(Point p){
-        return board.get(p).isClicked();
+    public boolean visible(Point p){
+        return board.get(p).isVisible();
     }
 
     public void open(Point p){
@@ -82,7 +81,6 @@ public class Model {
         if(field.getType() == Constants.BOMB){
             showAllBombs();
         }else {
-            field.setClicked();
             field.setVisible(true);
         }
     }

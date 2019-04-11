@@ -18,11 +18,11 @@ public class Controller {
             view.showMenu();
             try {
                 switch (reader.readLine()) {
-                    case "s":
+                    case "g":
                         model.newGame();
                         game();
                         break;
-                    case "c":
+                    case "s":
                         settings();
                         break;
                     case "e":
@@ -50,16 +50,23 @@ public class Controller {
                 view.showGetY();
                 int y = Integer.parseInt(reader.readLine())-1;
                 view.showActions();
+                Point p = new Point(x,y);
                 switch (reader.readLine()){
                     case "o":
-                        Point p = new Point(x,y);
-                        if(!model.clicked(p)){
+                        if(!model.visible(p)){
                             model.open(p);
+                            Constants.turnNumber++;
                         }else {
                             view.showClicked();
                         }
                         break;
                     case "f":
+                        if(!model.visible(p)) {
+                            model.flag(p);
+                            Constants.turnNumber++;
+                        }else {
+                            System.out.println("****** You can't flag this field******");
+                        }
                         break;
                     case "c":
                         break;
@@ -120,7 +127,6 @@ public class Controller {
                         break;
                     default:
                         view.showWarning();
-                        flag = !flag;
                 }
             } catch (IOException e) {
                 log.warning(e.getMessage());

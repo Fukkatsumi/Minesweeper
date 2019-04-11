@@ -1,16 +1,14 @@
 package com.minesweeper;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 
+import java.awt.*;
 import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
 public class ModelTest {
-    Model model;
+    private Model model;
 
     @Before
     public void init(){
@@ -46,8 +44,11 @@ public class ModelTest {
     }
 
     @Test
-    @Ignore
-    public void clicked() {
+    public void visible() {
+        Point p = new Point(0,0);
+        model.fillBoard();
+        model.getBoard().get(p).setVisible(true);
+        Assert.assertTrue(model.visible(p));
     }
 
     @Test
@@ -56,8 +57,13 @@ public class ModelTest {
     }
 
     @Test
-    @Ignore
     public void flag() {
+        Point p = new Point(0,0);
+        model.fillBoard();
+        Field actual = model.getBoard().get(p);
+        actual.setState(Constants.CHECKED);
+        model.flag(p);
+        Assert.assertEquals(actual.getState(), Constants.HIDDEN);
     }
 
     @Test

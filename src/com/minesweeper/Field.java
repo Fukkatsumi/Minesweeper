@@ -3,8 +3,7 @@ package com.minesweeper;
 public class Field {
     private char type;
     private char state = Constants.HIDDEN;
-    private boolean isVisible;
-    private boolean isClicked;
+    private boolean isVisible = false;
 
     public char getType() {
         return type;
@@ -24,14 +23,6 @@ public class Field {
 
     public void setVisible(boolean visible) {
         isVisible = visible;
-    }
-
-    public boolean isClicked() {
-        return isClicked;
-    }
-
-    public void setClicked() {
-        isClicked = !isClicked;
     }
 
     public Field(char type) {
