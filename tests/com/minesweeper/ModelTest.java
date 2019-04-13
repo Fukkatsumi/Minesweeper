@@ -31,8 +31,13 @@ public class ModelTest {
     }
 
     @Test
-    @Ignore
     public void bombsNearby() {
+        Point p = new Point(1,1);
+        model.fillBoard();
+        model.bombsNearby(p);
+        Assert.assertNotNull(model.getBoard().get(p));
+        Assert.assertNotSame(Constants.BOMB, model.getBoard().get(p).getType());
+
     }
 
     @Test
@@ -52,8 +57,13 @@ public class ModelTest {
     }
 
     @Test
-    @Ignore
     public void open() {
+        Point p = new Point(0,0);
+        model.fillBoard();
+        if(!model.getBoard().get(p).isVisible()){
+            model.open(p);
+            Assert.assertTrue(model.visible(p));
+        }
     }
 
     @Test

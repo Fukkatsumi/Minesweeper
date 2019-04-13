@@ -45,27 +45,26 @@ public class Controller {
             view.showBoard(model.getBoard());
             try {
                 view.showTurn();
-                view.showGetX();
-                int x = Integer.parseInt(reader.readLine())-1;
-                view.showGetY();
-                int y = Integer.parseInt(reader.readLine())-1;
+                Point field = getCords();
+                if(field == null){
+                    continue;
+                }
                 view.showActions();
-                Point p = new Point(x,y);
                 switch (reader.readLine()){
                     case "o":
-                        if(!model.visible(p)){
-                            model.open(p);
+                        if(!model.visible(field)){
+                            model.open(field);
                             Constants.turnNumber++;
                         }else {
                             view.showClicked();
                         }
                         break;
                     case "f":
-                        if(!model.visible(p)) {
-                            model.flag(p);
+                        if(!model.visible(field)) {
+                            model.flag(field);
                             Constants.turnNumber++;
                         }else {
-                            System.out.println("****** You can't flag this field******");
+                            view.showFlagged();
                         }
                         break;
                     case "c":
@@ -79,6 +78,25 @@ public class Controller {
             }
         }
         gameOver();
+    }
+
+    private Point getCords() throws IOException{
+        int x = 0;
+        int y = 0;
+        try {
+            view.showGetX();
+            x = Integer.parseInt(reader.readLine()) - 1;
+            view.showGetY();
+            y = Integer.parseInt(reader.readLine()) - 1;
+            if(x < 0 || x > Constants.boardSize || y < 0 || y > Constants.boardSize ){
+                view.showWarning();
+                return null;
+            }
+        }catch (NumberFormatException e){
+            view.showWarning();
+            return null;
+        }
+        return new Point(x,y);
     }
 
     private void gameOver(){

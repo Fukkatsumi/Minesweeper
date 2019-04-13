@@ -4,27 +4,27 @@ import java.awt.*;
 import java.util.Map;
 
 public class View {
-    public void showMenu(){
+    public void showMenu() {
         System.out.println("============== Minesweeper ver.1.0 ==============\n" +
                 "==============> To start game press 'g'\n" +
                 "==============> To change settings press 's'\n" +
                 "==============> To exit press 'e'");
     }
 
-    public void showSettings(){
+    public void showSettings() {
         System.out.println("============== Settings ==============\n" +
                 "==============> To change board size press 's'\n" +
                 "==============> To change bombs count 'c'\n" +
                 "==============> To quit press 'q'");
     }
 
-    public void showGame(){
+    public void showGame() {
         System.out.println("======>Quit - 'q'\n" +
                 "======>Restart - 'r'\n" +
                 "======>New game - 'n'");
     }
 
-    public void showBoard(Map<Point, Field> map){
+    public void showBoard(Map<Point, Field> map) {
         System.out.print("  ");
         for(int i = 0; i < Constants.boardSize; i++){
             System.out.print((i+1) + " ");
@@ -44,7 +44,7 @@ public class View {
         }
     }
 
-    public void showActions(){
+    public void showActions() {
         System.out.println("    To open field press 'o'\n" +
                 "    To set flag press 'f'\n" +
                 "    To cancel press 'c'\n ");
@@ -54,25 +54,29 @@ public class View {
         System.out.println("Turn " + Constants.turnNumber + ":");
     }
 
-    public void showGetX(){
+    public void showGetX() {
         System.out.println("Set cords: \n" +
                 "x = ");
     }
 
-    public void showGetY(){
+    public void showGetY() {
         System.out.println("y = ");
 
     }
 
     public void showClicked(){
-        System.out.println("****** You already opened this field******");
+        System.out.println("****** You already opened this field ******");
+    }
+
+    public void showFlagged() {
+        System.out.println("****** You can't flag this field ******");
     }
 
     public void showWarning(){
         System.out.println("Wrong parameter!");
     }
 
-    public void showGameOver(){
+    public void showGameOver() {
         System.out.printf("============== Game over! ==============\n" +
                 "Turns: %d\n" +
                 "Your score: %d\n" +
