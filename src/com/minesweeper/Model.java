@@ -96,9 +96,34 @@ public class Model {
         }
     }
 
-    public void showSafeArea(){
-
-    }
+//    !!!!!StackOverflow!!!!!
+//
+//    private void explore(Point p){
+//        if(!board.containsKey(p)){
+//            return;
+//        }
+//        if(board.get(p).isVisible()){
+//            return;
+//        }
+//        if(board.get(p).getState() == Constants.CHECKED){
+//            return;
+//        }
+//        if(board.get(p).getType() != Constants.EMPTY){
+//            board.get(p).setVisible(true);
+//            return;
+//        }
+//        explore(new Point(--p.x, --p.y));
+//        explore(new Point(p.x, --p.y));
+//        explore(new Point(++p.x, --p.y));
+//
+//        explore(new Point(--p.x, p.y));
+//        explore(new Point(p.x, p.y));
+//        explore(new Point(++p.x, p.y));
+//
+//        explore(new Point(--p.x, ++p.y));
+//        explore(new Point(p.x, ++p.y));
+//        explore(new Point(++p.x, ++p.y));
+//    }
 
     public void showAllBombs(){
         for(Field field: board.values()){

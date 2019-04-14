@@ -14,7 +14,6 @@ public class Constants {
     public static int boardSize = 5;
     public static int bombCount = 10;
     public static int turnNumber = 0;
-    public static int score = 0;
 
     public static void setBoardSize(int boardSize) {
         Constants.boardSize = boardSize;

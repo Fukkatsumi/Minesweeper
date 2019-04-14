@@ -13,7 +13,7 @@ public class Controller {
     private Model model = new Model();
     private View view = new View();
 
-    public void start(){
+    public void start() {
         while (true) {
             view.showMenu();
             try {
@@ -39,48 +39,43 @@ public class Controller {
         }
     }
 
-    private void game(){
+    private void game() throws IOException {
         while (!model.isGameOver()) {
             view.showGame();
             view.showBoard(model.getBoard());
-            try {
-                view.showTurn();
-                Point field = getCords();
-                if(field == null){
-                    continue;
-                }
-                view.showActions();
-                switch (reader.readLine()){
-                    case "o":
-                        if(!model.visible(field)){
-                            model.open(field);
-                            Constants.turnNumber++;
-                        }else {
-                            view.showClicked();
-                        }
-                        break;
-                    case "f":
-                        if(!model.visible(field)) {
-                            model.flag(field);
-                            Constants.turnNumber++;
-                        }else {
-                            view.showFlagged();
-                        }
-                        break;
-                    case "c":
-                        break;
-                    default:
-                        view.showWarning();
-                }
-            } catch (IOException e) {
-                log.warning(e.getMessage());
-                System.exit(-1);
+            view.showTurn();
+            Point field = getCords();
+            if (field == null) {
+                continue;
+            }
+            view.showActions();
+            switch (reader.readLine()) {
+                case "o":
+                    if (!model.visible(field)) {
+                        model.open(field);
+                        Constants.turnNumber++;
+                    } else {
+                        view.showClicked();
+                    }
+                    break;
+                case "f":
+                    if (!model.visible(field)) {
+                        model.flag(field);
+                        Constants.turnNumber++;
+                    } else {
+                        view.showFlagged();
+                    }
+                    break;
+                case "c":
+                    break;
+                default:
+                    view.showWarning();
             }
         }
         gameOver();
     }
 
-    private Point getCords() throws IOException{
+    private Point getCords() throws IOException {
         int x = 0;
         int y = 0;
         try {
@@ -88,67 +83,57 @@ public class Controller {
             x = Integer.parseInt(reader.readLine()) - 1;
             view.showGetY();
             y = Integer.parseInt(reader.readLine()) - 1;
-            if(x < 0 || x > Constants.boardSize || y < 0 || y > Constants.boardSize ){
+            if (x < 0 || x > Constants.boardSize || y < 0 || y > Constants.boardSize) {
                 view.showWarning();
                 return null;
             }
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             view.showWarning();
             return null;
         }
-        return new Point(x,y);
+        return new Point(x, y);
     }
 
-    private void gameOver(){
+    private void gameOver() throws IOException {
         while (true) {
             view.showBoard(model.getBoard());
             view.showGameOver();
-            try{
-                switch (reader.readLine()){
-                    case "e":
-                        reader.close();
-                        System.exit(0);
-                        break;
-                    case "r":
-                        model.newGame();
-                        game();
-                        break;
-                    case "m":
-                        start();
-                        break;
-                    default:
-                        view.showWarning();
-                }
-            }catch (IOException e){
-                log.warning(e.getMessage());
-                System.exit(-1);
+            switch (reader.readLine()) {
+                case "e":
+                    reader.close();
+                    System.exit(0);
+                    break;
+                case "r":
+                    model.newGame();
+                    game();
+                    break;
+                case "m":
+                    start();
+                    break;
+                default:
+                    view.showWarning();
             }
         }
     }
 
-    private void settings() {
+    private void settings() throws IOException {
         boolean flag = false;
         while (!flag) {
-            try {
-                view.showSettings();
-                switch (reader.readLine()) {
-                    case "s":
-                        System.out.println("Input the board size:");
-                        Constants.setBoardSize(Integer.parseInt(reader.readLine()));
-                        break;
-                    case "c":
-                        System.out.println("Input the bomb count:");
-                        Constants.setBombCount(Integer.parseInt(reader.readLine()));
-                        break;
-                    case "q":
-                        flag = true;
-                        break;
-                    default:
-                        view.showWarning();
-                }
-            } catch (IOException e) {
-                log.warning(e.getMessage());
-                System.exit(-1);
+            view.showSettings();
+            switch (reader.readLine()) {
+                case "s":
+                    view.showBoardSizeInput();
+                    Constants.setBoardSize(Integer.parseInt(reader.readLine()));
+                    break;
+                case "c":
+                    view.showBombCountInput();
+                    Constants.setBombCount(Integer.parseInt(reader.readLine()));
+                    break;
+                case "q":
+                    flag = true;
+                    break;
+                default:
+                    view.showWarning();
             }
         }
     }

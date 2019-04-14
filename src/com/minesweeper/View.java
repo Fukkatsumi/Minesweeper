@@ -72,6 +72,14 @@ public class View {
         System.out.println("****** You can't flag this field ******");
     }
 
+    public void showBoardSizeInput(){
+        System.out.println("Input the board size:");
+    }
+
+    public void showBombCountInput(){
+        System.out.println("Input the bomb count:");
+    }
+
     public void showWarning(){
         System.out.println("Wrong parameter!");
     }
@@ -79,9 +87,8 @@ public class View {
     public void showGameOver() {
         System.out.printf("============== Game over! ==============\n" +
                 "Turns: %d\n" +
-                "Your score: %d\n" +
                 "==============> To exit press 'e'\n" +
                 "==============> To restart game press 'r'\n" +
-                "==============> To return to main menu press'm'\n", Constants.turnNumber, Constants.score);
+                "==============> To return to main menu press'm'\n", Constants.turnNumber);
     }
 }
