@@ -77,9 +77,16 @@ public class Model {
     }
 
     public void open(Point p){
+        if(!board.containsKey(p)){
+            return;
+        }
+
         Field field = board.get(p);
-        if(field.getType() == Constants.BOMB){
+        if (field.getType() == Constants.BOMB){
             showAllBombs();
+        }else if (field.getType() == Constants.EMPTY){
+            //explore(p);
+            field.setVisible(true);
         }else {
             field.setVisible(true);
         }
@@ -96,33 +103,26 @@ public class Model {
         }
     }
 
-//    !!!!!StackOverflow!!!!!
-//
+//      StackOverFlow!
 //    private void explore(Point p){
-//        if(!board.containsKey(p)){
-//            return;
-//        }
 //        if(board.get(p).isVisible()){
 //            return;
 //        }
 //        if(board.get(p).getState() == Constants.CHECKED){
 //            return;
 //        }
-//        if(board.get(p).getType() != Constants.EMPTY){
-//            board.get(p).setVisible(true);
-//            return;
-//        }
-//        explore(new Point(--p.x, --p.y));
-//        explore(new Point(p.x, --p.y));
-//        explore(new Point(++p.x, --p.y));
 //
-//        explore(new Point(--p.x, p.y));
-//        explore(new Point(p.x, p.y));
-//        explore(new Point(++p.x, p.y));
+//        open(new Point(--p.x, --p.y));
+//        open(new Point(p.x, --p.y));
+//        open(new Point(++p.x, --p.y));
 //
-//        explore(new Point(--p.x, ++p.y));
-//        explore(new Point(p.x, ++p.y));
-//        explore(new Point(++p.x, ++p.y));
+//        open(new Point(--p.x, p.y));
+//        open(new Point(p.x, p.y));
+//        open(new Point(++p.x, p.y));
+//
+//        open(new Point(--p.x, ++p.y));
+//        open(new Point(p.x, ++p.y));
+//        open(new Point(++p.x, ++p.y));
 //    }
 
     public void showAllBombs(){
