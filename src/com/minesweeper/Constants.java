@@ -11,7 +11,7 @@ public class Constants {
     public static final char CHECKED = '^';
 
     /* OTHER */
-    public static int boardSize = 5;
+    public static int boardSize = 15;
     public static int bombCount = 10;
     public static int turnNumber = 0;
 

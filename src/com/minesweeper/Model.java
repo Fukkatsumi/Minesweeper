@@ -77,19 +77,13 @@ public class Model {
     }
 
     public void open(Point p){
-        if(!board.containsKey(p)){
-            return;
-        }
+            Field field = board.get(p);
+                if (field.getType() == Constants.BOMB){
+                    showAllBombs();
+                }else {
+                    field.setVisible(true);
+                }
 
-        Field field = board.get(p);
-        if (field.getType() == Constants.BOMB){
-            showAllBombs();
-        }else if (field.getType() == Constants.EMPTY){
-            //explore(p);
-            field.setVisible(true);
-        }else {
-            field.setVisible(true);
-        }
     }
 
     public void flag(Point p){
@@ -103,27 +97,20 @@ public class Model {
         }
     }
 
-//      StackOverFlow!
-//    private void explore(Point p){
-//        if(board.get(p).isVisible()){
-//            return;
-//        }
-//        if(board.get(p).getState() == Constants.CHECKED){
-//            return;
-//        }
-//
-//        open(new Point(--p.x, --p.y));
-//        open(new Point(p.x, --p.y));
-//        open(new Point(++p.x, --p.y));
-//
-//        open(new Point(--p.x, p.y));
-//        open(new Point(p.x, p.y));
-//        open(new Point(++p.x, p.y));
-//
-//        open(new Point(--p.x, ++p.y));
-//        open(new Point(p.x, ++p.y));
-//        open(new Point(++p.x, ++p.y));
-//    }
+//  Doesn't work correctly!
+    public void explore(Point p){
+        if(board.containsKey(p)) {
+            if (!board.get(p).isVisible()) {
+                open(p);
+                if (board.get(p).getType() == Constants.EMPTY) {
+                    explore(new Point(p.x, --p.y));
+                    explore(new Point(--p.x, p.y));
+                    explore(new Point(++p.x, p.y));
+                    explore(new Point(p.x, ++p.y));
+                }
+            }
+        }
+    }
 
     public void showAllBombs(){
         for(Field field: board.values()){

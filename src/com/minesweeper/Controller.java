@@ -52,7 +52,7 @@ public class Controller {
             switch (reader.readLine()) {
                 case "o":
                     if (!model.visible(field)) {
-                        model.open(field);
+                        model.explore(field);
                         Constants.turnNumber++;
                     } else {
                         view.showClicked();
