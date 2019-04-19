@@ -99,17 +99,23 @@ public class Model {
 
 //  Doesn't work correctly!
     public void explore(Point p){
-        if(board.containsKey(p)) {
             if (!board.get(p).isVisible()) {
                 open(p);
                 if (board.get(p).getType() == Constants.EMPTY) {
-                    explore(new Point(p.x, --p.y));
-                    explore(new Point(--p.x, p.y));
-                    explore(new Point(++p.x, p.y));
-                    explore(new Point(p.x, ++p.y));
+                    try {
+                        explore(new Point(p.x, --p.y));
+                    } catch (NullPointerException e){}
+                    try {
+                        explore(new Point(--p.x, p.y));
+                    } catch (NullPointerException e){}
+                    try {
+                        explore(new Point(++p.x, p.y));
+                    } catch (NullPointerException e){}
+                    try {
+                        explore(new Point(p.x, ++p.y));
+                    } catch (NullPointerException e){}
                 }
             }
-        }
     }
 
     public void showAllBombs(){
