@@ -13,6 +13,7 @@ public class Constants {
     /* OTHER */
     public static int boardSize = 15;
     public static int bombCount = 10;
+    public static int openedBomb = 0;
     public static int turnNumber = 0;
 
     public static void setBoardSize(int boardSize) {

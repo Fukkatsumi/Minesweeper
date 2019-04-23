@@ -48,7 +48,7 @@ public class Controller {
             if (field == null) {
                 continue;
             }
-            view.showActions();
+            view.showGameActions();
             switch (reader.readLine()) {
                 case "o":
                     if (!model.visible(field)) {
@@ -62,6 +62,9 @@ public class Controller {
                     if (!model.visible(field)) {
                         model.flag(field);
                         Constants.turnNumber++;
+                        if(model.isWinner()){
+                            winner();
+                        }
                     } else {
                         view.showFlagged();
                     }
@@ -76,28 +79,34 @@ public class Controller {
     }
 
     private Point getCords() throws IOException {
-        int x = 0;
-        int y = 0;
         try {
             view.showGetX();
-            x = Integer.parseInt(reader.readLine()) - 1;
+            int x = Integer.parseInt(reader.readLine()) - 1;
             view.showGetY();
-            y = Integer.parseInt(reader.readLine()) - 1;
-            if (x < 0 || x > Constants.boardSize || y < 0 || y > Constants.boardSize) {
-                view.showWarning();
-                return null;
+            int y = Integer.parseInt(reader.readLine()) - 1;
+            if (x >= 0 && x <= Constants.boardSize && y >= 0 && y <= Constants.boardSize) {
+                return new Point(x, y);
             }
+            throw new NumberFormatException();
         } catch (NumberFormatException e) {
             view.showWarning();
-            return null;
         }
-        return new Point(x, y);
+        return null;
     }
 
     private void gameOver() throws IOException {
+        view.showBoard(model.getBoard());
+        view.showGameOver();
+        actions();
+    }
+
+    private void winner() throws IOException {
+        view.showWin();
+        actions();
+    }
+
+    private void actions() throws IOException {
         while (true) {
-            view.showBoard(model.getBoard());
-            view.showGameOver();
             switch (reader.readLine()) {
                 case "e":
                     reader.close();

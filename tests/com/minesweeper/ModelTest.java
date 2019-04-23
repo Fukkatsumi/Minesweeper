@@ -3,9 +3,7 @@ package com.minesweeper;
 import org.junit.*;
 
 import java.awt.*;
-import java.util.HashMap;
 
-import static org.junit.Assert.*;
 
 public class ModelTest {
     private Model model;
@@ -74,11 +72,6 @@ public class ModelTest {
         actual.setState(Constants.CHECKED);
         model.flag(p);
         Assert.assertEquals(actual.getState(), Constants.HIDDEN);
-    }
-
-    @Test
-    @Ignore
-    public void showSafeArea() {
     }
 
     @Test

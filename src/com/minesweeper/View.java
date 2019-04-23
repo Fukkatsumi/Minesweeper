@@ -44,7 +44,7 @@ public class View {
         }
     }
 
-    public void showActions() {
+    public void showGameActions() {
         System.out.println("    To open field press 'o'\n" +
                 "    To set flag press 'f'\n" +
                 "    To cancel press 'c'\n ");
@@ -84,9 +84,18 @@ public class View {
         System.out.println("Wrong parameter!");
     }
 
+    public void showWin() {
+        System.out.println("============== You Win! ==============");
+        showActions();
+    }
+
     public void showGameOver() {
-        System.out.printf("============== Game over! ==============\n" +
-                "Turns: %d\n" +
+        System.out.println("============== Game over! ==============");
+        showActions();
+    }
+
+    private void showActions(){
+        System.out.printf("Turns: %d\n" +
                 "==============> To exit press 'e'\n" +
                 "==============> To restart game press 'r'\n" +
                 "==============> To return to main menu press'm'\n", Constants.turnNumber);

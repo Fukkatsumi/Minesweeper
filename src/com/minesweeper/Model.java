@@ -4,11 +4,12 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.logging.Logger;
 
 public class Model {
     private Map<Point, Field> board;
     private boolean gameOver;
+    private boolean winner;
+    private int flagged;
 
     public Map<Point, Field> getBoard() {
         return board;
@@ -81,7 +82,6 @@ public class Model {
                 if (field.getType() == Constants.BOMB){
                     showAllBombs();
                 }else {
-                    System.out.println("opened " + (p.x+1) + ", " + (p.y+1));
                     field.setVisible(true);
                 }
 
@@ -91,33 +91,58 @@ public class Model {
         Field field = board.get(p);
         if(!field.isVisible()){
             if(field.getState() == Constants.HIDDEN) {
+                if(field.getType() == Constants.BOMB) {
+                    Constants.openedBomb++;
+                }
+                flagged++;
                 field.setState(Constants.CHECKED);
             }else {
+                if(field.getType() == Constants.BOMB) {
+                    Constants.openedBomb--;
+                }
+                flagged--;
                 field.setState(Constants.HIDDEN);
+            }
+        }
+        if(flagged == Constants.bombCount) {
+            if (Constants.openedBomb == Constants.bombCount) {
+                winner = true;
             }
         }
     }
 
-//  Doesn't work correctly!
     public void explore(Point p){
         Point current = p;
+        if (board.containsKey(current)){
             if (!board.get(current).isVisible()) {
                 open(current);
                 if (board.get(current).getType() == Constants.EMPTY) {
-                    try {
-                        explore(new Point(current.x, ++current.y));
-                    } catch (NullPointerException e){}
-                    try {
-                        explore(new Point(current.x, --current.y));
-                    } catch (NullPointerException e){}
-                    try {
-                        explore(new Point(++current.x, current.y));
-                    } catch (NullPointerException e){}
-                    try {
-                        explore(new Point(--current.x, current.y));
-                    } catch (NullPointerException e){}
+                    correct(current);
                 }
             }
+        }
+    }
+
+    /* Check nearby fields on empties
+     * (x-1,y-1) (x,y-1) (x+1,y-1)
+     *  (x-1,y)   (x,y)   (x+1,y)
+     * (x-1,y+1) (x,y+1) (x+1,y+1)
+     * */
+    public void correct(Point p){
+        for (int i = p.x - 1; i < p.x + 2; i++) {
+            if (i < 0 || i > Constants.boardSize) continue;
+            for (int j = p.y - 1; j < p.y + 2; j++) {
+                if (j < 0 || j > Constants.boardSize) continue;
+                if (i == p.x && j == p.y) continue;
+                if(board.containsKey(new Point(i,j))) {
+                    if (board.get(new Point(i,j)).getType() != Constants.EMPTY) {
+                        open(new Point(i,j));
+                    }else {
+                        explore(new Point(i,j));
+                    }
+                }
+            }
+        }
     }
 
     public void showAllBombs(){
@@ -129,8 +154,12 @@ public class Model {
         gameOver = !gameOver;
     }
 
-    public boolean isGameOver() {
+    public boolean isGameOver(){
         return gameOver;
+    }
+
+    public boolean isWinner(){
+        return winner;
     }
 
 
