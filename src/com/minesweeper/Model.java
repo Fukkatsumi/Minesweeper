@@ -81,6 +81,7 @@ public class Model {
                 if (field.getType() == Constants.BOMB){
                     showAllBombs();
                 }else {
+                    System.out.println("opened " + (p.x+1) + ", " + (p.y+1));
                     field.setVisible(true);
                 }
 
@@ -99,20 +100,21 @@ public class Model {
 
 //  Doesn't work correctly!
     public void explore(Point p){
-            if (!board.get(p).isVisible()) {
-                open(p);
-                if (board.get(p).getType() == Constants.EMPTY) {
+        Point current = p;
+            if (!board.get(current).isVisible()) {
+                open(current);
+                if (board.get(current).getType() == Constants.EMPTY) {
                     try {
-                        explore(new Point(p.x, --p.y));
+                        explore(new Point(current.x, ++current.y));
                     } catch (NullPointerException e){}
                     try {
-                        explore(new Point(--p.x, p.y));
+                        explore(new Point(current.x, --current.y));
                     } catch (NullPointerException e){}
                     try {
-                        explore(new Point(++p.x, p.y));
+                        explore(new Point(++current.x, current.y));
                     } catch (NullPointerException e){}
                     try {
-                        explore(new Point(p.x, ++p.y));
+                        explore(new Point(--current.x, current.y));
                     } catch (NullPointerException e){}
                 }
             }
