@@ -1,8 +1,8 @@
 package com.minesweeper;
 
 /**
- * Minesweeper ver.1.0
- * Console version
+ * Minesweeper ver.2.0
+ * GUI version
  *
  * created by Fukkatsumi
  */
