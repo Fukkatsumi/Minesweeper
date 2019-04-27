@@ -4,7 +4,10 @@ import java.awt.*;
 import java.util.Map;
 
 public class View {
+    private Interface userInterface = new Interface();
+
     public void showMenu() {
+        userInterface.setView(userInterface.menu());
         System.out.println("============== Minesweeper ver.1.0 ==============\n" +
                 "==============> To start game press 'g'\n" +
                 "==============> To change settings press 's'\n" +
