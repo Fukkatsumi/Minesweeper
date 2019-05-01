@@ -28,8 +28,38 @@ public class Interface {
         return menuPanel;
     }
 
-    public void settings(){
+    public JPanel settings(){
+        JPanel settingsPanel = new JPanel();
+        settingsPanel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
 
+        JLabel lBoardSize = new JLabel("Board size: ");
+        lBoardSize.setForeground(Color.lightGray);
+
+        settingsPanel.add(lBoardSize, set(c,0,0));
+
+        JLabel lBombCount = new JLabel("Bombs count: ");
+        lBombCount.setForeground(Color.lightGray);
+
+        settingsPanel.add(lBombCount,set(c,0,1));
+
+        JTextField boardSizeTF = new JTextField(3);
+        boardSizeTF.setText(Integer.toString(Constants.boardSize));
+        boardSizeTF.setBackground(Color.gray.brighter());
+
+        settingsPanel.add(boardSizeTF, set(c,1,0));
+
+        JTextField bombCountTF = new JTextField(3);
+        bombCountTF.setText(Integer.toString(Constants.bombCount));
+        bombCountTF.setBackground(Color.gray.brighter());
+
+        settingsPanel.add(bombCountTF, set(c,1,1));
+
+        settingsPanel.add(button("OK"), set(c,0,2));
+        settingsPanel.add(button("Cancel"), set(c,1,2));
+
+        settingsPanel.setBackground(Color.darkGray);
+        return settingsPanel;
     }
 
     public JPanel game(){
@@ -45,6 +75,13 @@ public class Interface {
     public void setView(JPanel panel){
         GUIframe.setContentPane(panel);
         GUIframe.setVisible(true);
+    }
+
+    private GridBagConstraints set(GridBagConstraints c, int x, int y){
+        c.gridx = x;
+        c.gridy = y;
+        c.weighty = 2.0;
+        return c;
     }
 
     public Interface() {

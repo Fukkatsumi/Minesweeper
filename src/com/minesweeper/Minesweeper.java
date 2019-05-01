@@ -9,8 +9,12 @@ package com.minesweeper;
 
 public class Minesweeper {
     public static void main(String... args){
-        Controller game = new Controller();
-        game.start();
+        Runnable runnable = () -> {
+            Controller game = new Controller();
+            game.start();
+        };
+
+        runnable.run();
     }
 
 }

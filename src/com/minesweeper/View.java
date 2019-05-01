@@ -15,6 +15,7 @@ public class View {
     }
 
     public void showSettings() {
+        userInterface.setView(userInterface.settings());
         System.out.println("============== Settings ==============\n" +
                 "==============> To change board size press 's'\n" +
                 "==============> To change bombs count 'c'\n" +
