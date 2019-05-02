@@ -1,10 +1,12 @@
 package com.minesweeper;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class Interface {
     private JFrame GUIframe;
+    private JLabel lBombs;
 
     private JButton button(String title){
         JButton button = new JButton(title);
@@ -64,7 +66,35 @@ public class Interface {
 
     public JPanel game(){
         JPanel gamePanel = new JPanel();
+        gamePanel.setLayout(new BoxLayout(gamePanel, BoxLayout.PAGE_AXIS));
+        gamePanel.add(tools());
+        gamePanel.add(board());
+        gamePanel.setBackground(Color.darkGray);
         return gamePanel;
+    }
+
+    private JPanel tools(){
+        JPanel toolsPanel = new JPanel();
+        toolsPanel.setLayout(new BoxLayout(toolsPanel, BoxLayout.LINE_AXIS));
+
+        lBombs = new JLabel();
+        refreshBombsCount();
+
+        JButton button = new JButton(" ");
+        button.setActionCommand("New Game");
+        button.setBackground(Color.gray);
+
+        toolsPanel.add(Box.createHorizontalGlue());
+        toolsPanel.add(lBombs);
+        toolsPanel.add(Box.createHorizontalGlue());
+        toolsPanel.add(button);
+        toolsPanel.add(Box.createHorizontalGlue());
+        toolsPanel.setBorder(new EmptyBorder(3,1,1,1));
+        return toolsPanel;
+    }
+
+    public void refreshBombsCount(){
+        lBombs.setText(Integer.toString(Constants.bombCount - Constants.openedBomb));
     }
 
     private JPanel board(){

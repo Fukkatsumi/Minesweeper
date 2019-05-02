@@ -23,6 +23,7 @@ public class View {
     }
 
     public void showGame() {
+        userInterface.setView(userInterface.game());
         System.out.println("======>Quit - 'q'\n" +
                 "======>Restart - 'r'\n" +
                 "======>New game - 'n'");
