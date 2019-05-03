@@ -22,7 +22,8 @@ public class View {
                 "==============> To quit press 'q'");
     }
 
-    public void showGame() {
+    public void showGame(Map<Point, Field> map) {
+        userInterface.setBoard(map);
         userInterface.setView(userInterface.game());
         System.out.println("======>Quit - 'q'\n" +
                 "======>Restart - 'r'\n" +

@@ -3,10 +3,15 @@ package com.minesweeper;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Interface {
     private JFrame GUIframe;
     private JLabel lBombs;
+    private JLabel lTimer;
+
+    private Map<Point, JButton> board;
 
     private JButton button(String title){
         JButton button = new JButton(title);
@@ -27,6 +32,7 @@ public class Interface {
         menuPanel.add(button("Exit"));
         menuPanel.add(Box.createVerticalGlue());
         menuPanel.setBackground(Color.darkGray);
+        menuPanel.setSize(new Dimension(220,180));
         return menuPanel;
     }
 
@@ -61,6 +67,7 @@ public class Interface {
         settingsPanel.add(button("Cancel"), set(c,1,2));
 
         settingsPanel.setBackground(Color.darkGray);
+        settingsPanel.setSize(new Dimension(220,180));
         return settingsPanel;
     }
 
@@ -69,7 +76,7 @@ public class Interface {
         gamePanel.setLayout(new BoxLayout(gamePanel, BoxLayout.PAGE_AXIS));
         gamePanel.add(tools());
         gamePanel.add(board());
-        gamePanel.setBackground(Color.darkGray);
+        gamePanel.setSize(new Dimension(20 + 18*Constants.boardSize, 55 + 18*Constants.boardSize));
         return gamePanel;
     }
 
@@ -82,12 +89,18 @@ public class Interface {
 
         JButton button = new JButton(" ");
         button.setActionCommand("New Game");
+        button.setFocusPainted(false);
+        //button.setIcon();
         button.setBackground(Color.gray);
+
+        lTimer = new JLabel("00:00");
 
         toolsPanel.add(Box.createHorizontalGlue());
         toolsPanel.add(lBombs);
         toolsPanel.add(Box.createHorizontalGlue());
         toolsPanel.add(button);
+        toolsPanel.add(Box.createHorizontalGlue());
+        toolsPanel.add(lTimer);
         toolsPanel.add(Box.createHorizontalGlue());
         toolsPanel.setBorder(new EmptyBorder(3,1,1,1));
         return toolsPanel;
@@ -99,11 +112,29 @@ public class Interface {
 
     private JPanel board(){
         JPanel boardPanel = new JPanel();
+        boardPanel.setLayout(new GridLayout(Constants.boardSize, Constants.boardSize));
+        try {
+            for (JButton button : board.values()) {
+                boardPanel.add(button);
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         return boardPanel;
+    }
+
+    public void setBoard(Map<Point, Field> board){
+        this.board = new HashMap<>();
+        for (Point p: board.keySet()){
+            this.board.put(p, new JButton());
+            this.board.get(p).addMouseListener(null);
+            this.board.get(p).setBackground(Color.BLUE.darker());
+        }
     }
 
     public void setView(JPanel panel){
         GUIframe.setContentPane(panel);
+        GUIframe.setSize(panel.getSize());
         GUIframe.setVisible(true);
     }
 
@@ -116,7 +147,6 @@ public class Interface {
 
     public Interface() {
         GUIframe = new JFrame("Minesweeper ver.2.0");
-        GUIframe.setSize(new Dimension(220,180));
         GUIframe.setLocationRelativeTo(null);
         GUIframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }

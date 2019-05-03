@@ -41,7 +41,7 @@ public class Controller {
 
     private void game() throws IOException {
         while (!model.isGameOver()) {
-            view.showGame();
+            view.showGame(model.getBoard());
             view.showBoard(model.getBoard());
             view.showTurn();
             Point field = getCords();
