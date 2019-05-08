@@ -16,6 +16,8 @@ public class Model {
     }
 
     public void newGame(){
+        Constants.openedBomb = 0;
+        Constants.turnNumber = 0;
         createBoard();
         fillBoard();
         gameOver = false;

@@ -21,6 +21,10 @@ public class Constants {
     }
 
     public static void setBombCount(int bombCount) {
-        Constants.bombCount = bombCount;
+        if(bombCount > boardSize - boardSize / 4){
+            Constants.bombCount = boardSize / 2;
+        } else {
+            Constants.bombCount = bombCount;
+        }
     }
 }
