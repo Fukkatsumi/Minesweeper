@@ -1,5 +1,7 @@
 package com.minesweeper;
 
+import javax.swing.*;
+
 /**
  * Minesweeper ver.2.0
  * GUI version
@@ -15,6 +17,11 @@ public class Minesweeper {
         };
 
         runnable.run();
+
+//        SwingUtilities.invokeLater(() -> {
+//            Interface uInterface = new Interface();
+//            uInterface.setView(uInterface.menu());
+//        });
     }
 
 }

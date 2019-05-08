@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.Map;
 
 public class View {
-    private Interface userInterface = new Interface();
+    public static Interface userInterface = new Interface();
 
     public void showMenu() {
         userInterface.setView(userInterface.menu());

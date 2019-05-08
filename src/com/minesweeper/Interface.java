@@ -7,11 +7,12 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Interface {
+public class Interface extends JFrame{
     private JFrame GUIframe;
     private JLabel lBombs;
     private JLabel lTimer;
     private JMenuBar mbGame;
+    private UIActionListener actionListener;
 
     private Map<Point, JButton> board;
 
@@ -91,13 +92,16 @@ public class Interface {
         JMenu menu = new JMenu("Game");
         JMenuItem menuItem = new JMenuItem("Quit to menu", KeyEvent.VK_Q);
         menuItem.setActionCommand("Quit to menu");
+        menuItem.addActionListener(actionListener);
         menu.add(menuItem);
         menuItem = new JMenuItem("New Game", KeyEvent.VK_N);
         menuItem.setActionCommand("New Game");
+        menuItem.addActionListener(actionListener);
         menu.add(menuItem);
         menu.addSeparator();
         menuItem = new JMenuItem("Exit", KeyEvent.VK_E);
         menuItem.setActionCommand("Exit");
+        menuItem.addActionListener(actionListener);
         menu.add(menuItem);
         mbGame.add(menu);
     }
@@ -105,6 +109,7 @@ public class Interface {
     private JButton button(String title){
         JButton button = new JButton(title);
         button.setActionCommand(title);
+        button.addActionListener(actionListener);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setBackground(Color.CYAN.darker());
         return button;
@@ -121,7 +126,7 @@ public class Interface {
         JButton button = new JButton(" ");
         button.setActionCommand("New Game");
         button.setFocusPainted(false);
-        //button.setIcon();
+        button.addActionListener(actionListener);
         button.setBackground(Color.gray);
 
         lTimer = new JLabel("00:00");
