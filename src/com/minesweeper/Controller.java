@@ -130,24 +130,13 @@ public class Controller {
         while (!flag) {
             view.showSettings();
             switch (reader.readLine()) {
-                case "e":
-                    reader.close();
-                    System.exit(0);
-                    break;
-                case "r":
-                    model.newGame();
-                    game();
-                    break;
-                case "m":
-                    start();
-                    break;
                 case "s":
                     view.showBoardSizeInput();
-                    Constants.setBoardSize(checkNumber(reader.readLine(), Constants.boardSize));
+                    checkNumber(reader.readLine(), true);
                     break;
                 case "c":
                     view.showBombCountInput();
-                    Constants.setBombCount(checkNumber(reader.readLine(), Constants.bombCount));
+                    checkNumber(reader.readLine(), false);
                     break;
                 case "q":
                     flag = true;
@@ -158,16 +147,16 @@ public class Controller {
         }
     }
 
-    private int checkNumber(String data, int defaultValue) throws IOException{
+    private void checkNumber(String data, boolean isBoardSize) throws IOException{
         try {
             int number = Integer.parseInt(data);
-            if (number >= 5 && number <= 40) {
-                return number;
+            if(isBoardSize){
+                Constants.setBoardSize(number);
+            } else {
+                Constants.setBombCount(number);
             }
-            throw new NumberFormatException();
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException e){
             view.showWarning();
         }
-        return defaultValue;
     }
 }

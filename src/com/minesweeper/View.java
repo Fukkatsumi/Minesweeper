@@ -12,10 +12,12 @@ public class View {
     }
 
     public void showSettings() {
-        System.out.println("============== Settings ==============\n" +
+        System.out.printf("============== Settings ==============\n" +
+                "Board size: %d\n" +
+                "Bomb count: %d\n" +
                 "==============> To change board size press 's'\n" +
                 "==============> To change bombs count 'c'\n" +
-                "==============> To quit press 'q'");
+                "==============> To quit press 'q'\n", Constants.boardSize, Constants.bombCount);
     }
 
     public void showGame() {
