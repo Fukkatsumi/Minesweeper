@@ -21,9 +21,9 @@ public class View {
     }
 
     public void showGame() {
-        System.out.println("======>Quit - 'q'\n" +
-                "======>Restart - 'r'\n" +
-                "======>New game - 'n'");
+        System.out.println("======>Exit - 'e'\n" +
+                "======>New game - 'n'\n" +
+                "======>Return to menu - 'r'" );
     }
 
     public void showBoard(Map<Point, Field> map) {
@@ -94,6 +94,11 @@ public class View {
     public void showGameOver() {
         System.out.println("============== Game over! ==============");
         showActions();
+    }
+
+    public void showExitGame() {
+        System.out.println("Exit game?\n" +
+                "'y' - Yes  'n' - No");
     }
 
     private void showActions(){

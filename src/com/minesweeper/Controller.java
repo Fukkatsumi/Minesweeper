@@ -26,8 +26,7 @@ public class Controller {
                         settings();
                         break;
                     case "e":
-                        reader.close();
-                        System.exit(0);
+                        exit();
                         break;
                     default:
                         view.showWarning();
@@ -50,6 +49,16 @@ public class Controller {
             }
             view.showGameActions();
             switch (reader.readLine()) {
+                case "e":
+                    exit();
+                    break;
+                case "r":
+                    model.newGame();
+                    game();
+                    break;
+                case "m":
+                    start();
+                    break;
                 case "o":
                     if (!model.visible(field)) {
                         model.explore(field);
@@ -109,8 +118,7 @@ public class Controller {
         while (true) {
             switch (reader.readLine()) {
                 case "e":
-                    reader.close();
-                    System.exit(0);
+                    exit();
                     break;
                 case "r":
                     model.newGame();
@@ -157,6 +165,24 @@ public class Controller {
             }
         } catch (NumberFormatException e){
             view.showWarning();
+        }
+    }
+
+    private void exit() throws IOException {
+        boolean flag = false;
+        while (!flag) {
+            view.showExitGame();
+            switch (reader.readLine()) {
+                case "y":
+                    reader.close();
+                    System.exit(0);
+                    break;
+                case "n":
+                    flag = true;
+                    break;
+                default:
+                    view.showWarning();
+            }
         }
     }
 }
