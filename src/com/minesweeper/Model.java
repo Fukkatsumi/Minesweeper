@@ -12,7 +12,7 @@ public class Model {
     private int flagged;
 
     public Map<Point, Field> getBoard() {
-        return board;
+        return this.board;
     }
 
     public void newGame(){

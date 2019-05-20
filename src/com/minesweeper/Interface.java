@@ -12,10 +12,13 @@ public class Interface extends JFrame{
     private JLabel lBombs;
     private JLabel lTimer;
     private JMenuBar mbGame;
-    private UIActionListener actionListener;
+    private static UIActionListener actionListener;
+
+    {
+        actionListener = new UIActionListener();
+    }
 
     private Map<Point, JButton> board;
-
 
     public JPanel menu(){
         JPanel pMenu = new JPanel();

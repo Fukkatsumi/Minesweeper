@@ -23,14 +23,14 @@ public class View {
     }
 
     public void showGame(Map<Point, Field> map) {
-        userInterface.setBoard(map);
-        userInterface.setView(userInterface.game());
         System.out.println("======>Quit - 'q'\n" +
                 "======>Restart - 'r'\n" +
                 "======>New game - 'n'");
     }
 
     public void showBoard(Map<Point, Field> map) {
+        userInterface.setBoard(map);
+        userInterface.setView(userInterface.game());
         System.out.print("  ");
         for(int i = 0; i < Constants.boardSize; i++){
             System.out.print((i+1) + " ");
