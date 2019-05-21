@@ -10,18 +10,14 @@ import javax.swing.*;
  */
 
 public class Minesweeper {
+    public static Interface uInterface;
+    public static Controller game;
     public static void main(String... args){
-        Runnable runnable = () -> {
-            Controller game = new Controller();
-            game.start();
-        };
-
-        runnable.run();
-
-//        SwingUtilities.invokeLater(() -> {
-//            Interface uInterface = new Interface();
-//            uInterface.setView(uInterface.menu());
-//        });
+        SwingUtilities.invokeLater(() -> {
+            game = new Controller();
+            uInterface = new Interface();
+            uInterface.setView(uInterface.menu());
+        });
     }
 
 }

@@ -10,7 +10,7 @@ public class Controller {
     private static Logger log = Logger.getLogger(Controller.class.getName());
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    private Model model = new Model();
+    public Model model = new Model();
     private View view = new View();
 
     public void start() {
@@ -39,10 +39,13 @@ public class Controller {
         }
     }
 
-    private void game() throws IOException {
+    public void game() throws IOException {
         while (!model.isGameOver()) {
-            view.showGame(model.getBoard());
+            view.showGame();
             view.showBoard(model.getBoard());
+            view.userInterface.setBoard(model.getBoard());
+            view.userInterface.setView(view.userInterface.game());
+
             view.showTurn();
             Point field = getCords();
             if (field == null) {
