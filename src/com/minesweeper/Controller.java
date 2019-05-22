@@ -1,6 +1,7 @@
 package com.minesweeper;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,7 +13,6 @@ public class Controller {
 
     public Model model = new Model();
     private View view = new View();
-
     public void start() {
         while (true) {
             view.showMenu();
@@ -43,8 +43,8 @@ public class Controller {
         while (!model.isGameOver()) {
             view.showGame();
             view.showBoard(model.getBoard());
-            view.userInterface.setBoard(model.getBoard());
-            view.userInterface.setView(view.userInterface.game());
+            view.userSwingInterface.setBoard(model.getBoard());
+            view.userSwingInterface.setView(view.userSwingInterface.pGame());
 
             view.showTurn();
             Point field = getCords();

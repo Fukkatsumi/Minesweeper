@@ -9,7 +9,7 @@ public class UIMouseListener implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         //getCords
         //explore
-        //setButton settings
+        //setButton pSettings
     }
 
     @Override

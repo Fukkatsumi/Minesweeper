@@ -4,18 +4,18 @@ import java.awt.*;
 import java.util.Map;
 
 public class View {
-    public static Interface userInterface = new Interface();
+    public static SwingInterface userSwingInterface = new SwingInterface();
 
     public void showMenu() {
-        userInterface.setView(userInterface.menu());
+        userSwingInterface.setView(userSwingInterface.pMenu());
         System.out.println("============== Minesweeper ver.1.0 ==============\n" +
-                "==============> To start game press 'g'\n" +
-                "==============> To change settings press 's'\n" +
+                "==============> To start pGame press 'g'\n" +
+                "==============> To change pSettings press 's'\n" +
                 "==============> To exit press 'e'");
     }
 
     public void showSettings() {
-        userInterface.setView(userInterface.settings());
+        userSwingInterface.setView(userSwingInterface.pSettings());
         System.out.println("============== Settings ==============\n" +
                 "==============> To change board size press 's'\n" +
                 "==============> To change bombs count 'c'\n" +
@@ -25,7 +25,7 @@ public class View {
     public void showGame() {
         System.out.println("======>Quit - 'q'\n" +
                 "======>Restart - 'r'\n" +
-                "======>New game - 'n'");
+                "======>New pGame - 'n'");
     }
 
     public void showBoard(Map<Point, Field> map) {
@@ -101,7 +101,7 @@ public class View {
     private void showActions(){
         System.out.printf("Turns: %d\n" +
                 "==============> To exit press 'e'\n" +
-                "==============> To restart game press 'r'\n" +
-                "==============> To return to main menu press'm'\n", Constants.turnNumber);
+                "==============> To restart pGame press 'r'\n" +
+                "==============> To return to main pMenu press'm'\n", Constants.turnNumber);
     }
 }

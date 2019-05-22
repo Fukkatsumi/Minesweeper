@@ -2,7 +2,6 @@ package com.minesweeper;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class UIActionListener implements ActionListener {
     @Override
@@ -10,17 +9,17 @@ public class UIActionListener implements ActionListener {
         switch (e.getActionCommand()){
             case "New Game":
                 Minesweeper.game.model.newGame();
-                Minesweeper.uInterface.setBoard(Minesweeper.game.model.getBoard());
-                Minesweeper.uInterface.setView(Minesweeper.uInterface.game());
+                Minesweeper.uSwingInterface.setBoard(Minesweeper.game.model.getBoard());
+                Minesweeper.uSwingInterface.setView(Minesweeper.uSwingInterface.pGame());
                 break;
             case "Settings":
-                Minesweeper.uInterface.setView(Minesweeper.uInterface.settings());
+                Minesweeper.uSwingInterface.setView(Minesweeper.uSwingInterface.pSettings());
                 break;
             case "OK":
                 break;
             case "Cancel":
-            case "Quit to menu":
-                Minesweeper.uInterface.setView(Minesweeper.uInterface.menu());
+            case "Quit to pMenu":
+                Minesweeper.uSwingInterface.setView(Minesweeper.uSwingInterface.pMenu());
                 break;
             case "Exit":
                 System.exit(0);
