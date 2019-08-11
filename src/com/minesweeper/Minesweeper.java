@@ -1,11 +1,12 @@
 package com.minesweeper;
 
+import com.minesweeper.Interface.Console.Controller;
+import com.minesweeper.Interface.GUI.SwingInterface;
+
 import javax.swing.*;
 
 /**
- * Minesweeper ver.2.0
- * GUI version
- *
+ * Minesweeper ver.3.0
  * created by Fukkatsumi
  */
 

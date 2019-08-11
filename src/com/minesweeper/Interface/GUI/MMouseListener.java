@@ -1,9 +1,9 @@
-package com.minesweeper;
+package com.minesweeper.Interface.GUI;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class UIMouseListener implements MouseListener {
+public class MMouseListener implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {

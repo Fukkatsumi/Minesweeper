@@ -1,7 +1,9 @@
-package com.minesweeper;
+package com.minesweeper.Interface.Console;
+
+import com.minesweeper.Board;
+import com.minesweeper.Constants;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,7 +13,7 @@ public class Controller {
     private static Logger log = Logger.getLogger(Controller.class.getName());
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    public Model model = new Model();
+    public Board board = new Board();
     private View view = new View();
     public void start() {
         while (true) {
@@ -19,7 +21,7 @@ public class Controller {
             try {
                 switch (reader.readLine()) {
                     case "g":
-                        model.newGame();
+//                        board.newGame();
                         game();
                         break;
                     case "s":
@@ -40,10 +42,11 @@ public class Controller {
     }
 
     public void game() throws IOException {
-        while (!model.isGameOver()) {
+        while (true) {
+//            while (!board.isGameOver()) {
             view.showGame();
-            view.showBoard(model.getBoard());
-            view.userSwingInterface.setBoard(model.getBoard());
+//            view.showBoard(board.getBoard());
+//            view.userSwingInterface.setBoard(board.getBoard());
             view.userSwingInterface.setView(view.userSwingInterface.pGame());
 
             view.showTurn();
@@ -54,20 +57,20 @@ public class Controller {
             view.showGameActions();
             switch (reader.readLine()) {
                 case "o":
-                    if (!model.visible(field)) {
-                        model.explore(field);
+                    if (!board.visible(field)) {
+                        board.explore(field);
                         Constants.turnNumber++;
                     } else {
                         view.showClicked();
                     }
                     break;
                 case "f":
-                    if (!model.visible(field)) {
-                        model.flag(field);
+                    if (!board.visible(field)) {
+//                        board.flag(field);
                         Constants.turnNumber++;
-                        if(model.isWinner()){
-                            winner();
-                        }
+//                        if(board.isWinner()){
+//                            winner();
+//                        }
                     } else {
                         view.showFlagged();
                     }
@@ -78,7 +81,7 @@ public class Controller {
                     view.showWarning();
             }
         }
-        gameOver();
+//        gameOver();
     }
 
     private Point getCords() throws IOException {
@@ -98,7 +101,7 @@ public class Controller {
     }
 
     private void gameOver() throws IOException {
-        view.showBoard(model.getBoard());
+        //view.showBoard(board.getBoard());
         view.showGameOver();
         actions();
     }
@@ -116,7 +119,7 @@ public class Controller {
                     System.exit(0);
                     break;
                 case "r":
-                    model.newGame();
+                   // board.newGame();
                     game();
                     break;
                 case "m":

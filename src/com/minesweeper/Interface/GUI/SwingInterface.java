@@ -1,4 +1,7 @@
-package com.minesweeper;
+package com.minesweeper.Interface.GUI;
+
+import com.minesweeper.Constants;
+import com.minesweeper.Field;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -7,15 +10,15 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SwingInterface extends JFrame implements Interface{
+public class SwingInterface extends JFrame {
     private JFrame GUIframe;
     private JLabel lBombs;
     private JLabel lTimer;
     private JMenuBar mbGame;
-    private static UIActionListener actionListener;
+    private static MActionListener actionListener;
 
     {
-        actionListener = new UIActionListener();
+        actionListener = new MActionListener();
     }
 
     private Map<Point, JButton> board;
@@ -185,21 +188,6 @@ public class SwingInterface extends JFrame implements Interface{
         GUIframe = new JFrame("Minesweeper ver.2.0");
         GUIframe.setLocationRelativeTo(null);
         GUIframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    }
-
-    @Override
-    public void menu() {
-
-    }
-
-    @Override
-    public void game() {
-
-    }
-
-    @Override
-    public void settings() {
-
     }
 }
 

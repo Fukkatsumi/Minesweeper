@@ -1,4 +1,8 @@
-package com.minesweeper;
+package com.minesweeper.Interface.Console;
+
+import com.minesweeper.Constants;
+import com.minesweeper.Field;
+import com.minesweeper.Interface.GUI.SwingInterface;
 
 import java.awt.*;
 import java.util.Map;
