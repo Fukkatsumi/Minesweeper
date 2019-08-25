@@ -8,7 +8,6 @@ public class Action {
 
     public void newGame(){
         board = new Board();
-        board.create();
         board.fill();
         gameOver = false;
     }

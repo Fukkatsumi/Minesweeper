@@ -1,31 +1,97 @@
 package com.minesweeper;
 
 public class Field {
-    private char type;
-    private char state = Constants.HIDDEN;
-    private boolean isVisible = false;
+    public enum Type {
+        NUMBER('0'),
+        BOMB('b'),
+        EMPTY('_');
 
-    public char getType() {
+        private char symbol;
+
+        Type(char symbol){
+            this.symbol = symbol;
+        }
+
+        public Type setNumber(int number){
+            if(this == NUMBER) {
+                symbol = Integer.toString(number).charAt(0);
+            }
+            return this;
+        }
+
+        public char getChar() {
+            return symbol;
+        }
+
+        @Override
+        public String toString() {
+            return "Type{" +
+                    "symbol='" + symbol + '\'' +
+                    '}';
+        }
+    }
+
+    public enum State{
+        OPEN (' '),
+        HIDDEN ('*'),
+        CHECKED ('^');
+
+        private char symbol;
+
+        State(char symbol){
+            this.symbol = symbol;
+        }
+
+        public char getChar() {
+            return symbol;
+        }
+
+        @Override
+        public String toString() {
+            return "State{" +
+                    "symbol='" + symbol + '\'' +
+                    '}';
+        }
+    }
+
+    private Type type;
+    private State state = State.HIDDEN;
+
+    public Type getType() {
         return type;
     }
 
-    public char getState() {
-        return state;
+    public void check(){
+        if (this.state == State.HIDDEN){
+            this.state = State.CHECKED;
+        } else if (this.state == State.CHECKED){
+            this.state = State.HIDDEN;
+        }
     }
 
-    public void setState(char state) {
-        this.state = state;
+    public boolean isChecked(){
+        return state == State.CHECKED;
     }
 
-    public boolean isVisible() {
-        return isVisible;
+    public void open(){
+        if(state != State.CHECKED) {
+            state = State.OPEN;
+        }
     }
 
-    public void setVisible(boolean visible) {
-        isVisible = visible;
+    public boolean isOpen() {
+        return state == State.OPEN;
     }
 
-    public Field(char type) {
+    public boolean isBomb(){
+        return type == Type.BOMB;
+    }
+
+    public boolean isEmpty(){
+        return type == Type.EMPTY;
+    }
+
+    public Field(Type type) {
         this.type = type;
     }
 }

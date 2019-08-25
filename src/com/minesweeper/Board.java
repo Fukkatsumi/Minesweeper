@@ -9,7 +9,7 @@ public class Board {
     private Map<Point, Field> board;
     private int flaggedFields;
 
-    void create() {
+    public Board() {
         this.board = new HashMap<>();
     }
 
@@ -33,13 +33,13 @@ public class Board {
             int x = r.nextInt(Constants.boardSize);
             int y = r.nextInt(Constants.boardSize);
             if (!board.containsKey(new Point(x,y))) {
-                board.put(new Point(x, y), new Field(Constants.BOMB));
+                board.put(new Point(x, y), new Field(Field.Type.BOMB));
                 count++;
             }
         }while (count != Constants.bombCount);
     }
 
-    Map<Point, Field> getBoard() {
+    protected Map<Point, Field> getBoard() {
         return this.board;
     }
 
@@ -56,26 +56,26 @@ public class Board {
                 if (j < 0 || j > Constants.boardSize) continue;
                 if (i == p.x && j == p.y) continue;
                 if (board.containsKey(new Point(i, j))) {
-                    if (board.get(new Point(i, j)).getType() == Constants.BOMB) {
+                    if (board.get(new Point(i, j)).isBomb()) {
                         bombCount++;
                     }
                 }
             }
         }
-        return bombCount > 0 ? new Field(String.valueOf(bombCount).charAt(0)) : new Field(Constants.EMPTY);
+        return bombCount > 0 ? new Field(Field.Type.NUMBER.setNumber(bombCount)) : new Field(Field.Type.EMPTY);
     }
 
 
     public boolean visible(Point p){
-        return board.get(p).isVisible();
+        return board.get(p).isOpen();
     }
 
     public void open(Point p){
             Field field = board.get(p);
-                if (field.getType() == Constants.BOMB){
+                if (field.isBomb()){
                     showAllBombs();
                 }else {
-                    field.setVisible(true);
+                    field.open();
                 }
 
     }
@@ -129,7 +129,7 @@ public class Board {
                 if (i == p.x && j == p.y) continue;
 
                 if(board.containsKey(new Point(i,j))) {
-                    if (board.get(new Point(i,j)).getType() != Constants.EMPTY) {
+                    if (!board.get(new Point(i,j)).isEmpty()) {
                         open(new Point(i,j));
                     }else {
                         explore(new Point(i,j));
@@ -141,8 +141,8 @@ public class Board {
 
     public void showAllBombs(){
         for(Field field: board.values()){
-            if(field.getType() == Constants.BOMB){
-                field.setVisible(true);
+            if(field.isBomb()){
+                field.open();
             }
         }
         //gameOver = !gameOver;
