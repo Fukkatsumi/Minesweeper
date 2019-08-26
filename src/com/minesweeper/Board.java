@@ -7,7 +7,19 @@ import java.util.Random;
 
 public class Board {
     private Map<Point, Field> board;
-    private int flaggedFields;
+    private int checkedFieldsCount;
+
+    public static int boardSize = 15;
+    public static int bombCount = 10;
+    public static int openedBomb = 0;
+
+    public static void setBoardSize(int boardSize) {
+        Board.boardSize = boardSize;
+    }
+
+    public static void setBombCount(int bombCount) {
+        Board.bombCount = bombCount;
+    }
 
     public Board() {
         this.board = new HashMap<>();
@@ -16,8 +28,8 @@ public class Board {
     void fill(){
         setBombs();
         Point p;
-        for (int i = 0; i < Constants.boardSize; i++){
-            for (int j = 0; j < Constants.boardSize; j++){
+        for (int i = 0; i < boardSize; i++){
+            for (int j = 0; j < boardSize; j++){
                 p = new Point(i,j);
                 if(!board.containsKey(p)){
                     board.put(p,bombsNearby(p));
@@ -30,13 +42,13 @@ public class Board {
         int count = 0;
         do{
             Random r = new Random();
-            int x = r.nextInt(Constants.boardSize);
-            int y = r.nextInt(Constants.boardSize);
+            int x = r.nextInt(boardSize);
+            int y = r.nextInt(boardSize);
             if (!board.containsKey(new Point(x,y))) {
                 board.put(new Point(x, y), new Field(Field.Type.BOMB));
                 count++;
             }
-        }while (count != Constants.bombCount);
+        }while (count != bombCount);
     }
 
     protected Map<Point, Field> getBoard() {
@@ -51,9 +63,9 @@ public class Board {
     public Field bombsNearby(Point p) {
         int bombCount = 0;
         for (int i = p.x - 1; i < p.x + 2; i++) {
-            if (i < 0 || i > Constants.boardSize) continue;
+            if (i < 0 || i > boardSize) continue;
             for (int j = p.y - 1; j < p.y + 2; j++) {
-                if (j < 0 || j > Constants.boardSize) continue;
+                if (j < 0 || j > boardSize) continue;
                 if (i == p.x && j == p.y) continue;
                 if (board.containsKey(new Point(i, j))) {
                     if (board.get(new Point(i, j)).isBomb()) {
@@ -83,22 +95,22 @@ public class Board {
 //    public void flag(Point p){
 //        Field field = board.get(p);
 //        if(!field.isVisible()){
-//            if(field.getState() == Constants.HIDDEN) {
-//                if(field.getType() == Constants.BOMB) {
-//                    Constants.openedBomb++;
+//            if(field.getState() == HIDDEN) {
+//                if(field.getType() == BOMB) {
+//                    openedBomb++;
 //                }
 //                flagged++;
-//                field.setState(Constants.CHECKED);
+//                field.setState(CHECKED);
 //            }else {
-//                if(field.getType() == Constants.BOMB) {
-//                    Constants.openedBomb--;
+//                if(field.getType() == BOMB) {
+//                    openedBomb--;
 //                }
 //                flagged--;
-//                field.setState(Constants.HIDDEN);
+//                field.setState(HIDDEN);
 //            }
 //        }
-////        if(flagged == Constants.bombCount) {
-////            if (Constants.openedBomb == Constants.bombCount) {
+////        if(flagged == bombCount) {
+////            if (openedBomb == bombCount) {
 ////                winner = true;
 ////            }
 ////        }
@@ -109,7 +121,7 @@ public class Board {
 //        if (board.containsKey(current)){
 //            if (!board.get(current).isVisible()) {
 //                open(current);
-//                if (board.get(current).getType() == Constants.EMPTY) {
+//                if (board.get(current).getType() == EMPTY) {
 //                    correct(current);
 //                }
 //            }
@@ -123,9 +135,9 @@ public class Board {
      * */
     public void explore(Point p){
         for (int i = p.x - 1; i < p.x + 2; i++) {
-            if (i < 0 || i > Constants.boardSize) continue;
+            if (i < 0 || i > boardSize) continue;
             for (int j = p.y - 1; j < p.y + 2; j++) {
-                if (j < 0 || j > Constants.boardSize) continue;
+                if (j < 0 || j > boardSize) continue;
                 if (i == p.x && j == p.y) continue;
 
                 if(board.containsKey(new Point(i,j))) {

@@ -61,6 +61,10 @@ public class Field {
         return type;
     }
 
+    public State getState() {
+        return state;
+    }
+
     public void check(){
         if (this.state == State.HIDDEN){
             this.state = State.CHECKED;

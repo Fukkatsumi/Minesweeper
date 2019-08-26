@@ -1,6 +1,5 @@
 package com.minesweeper.Interface.GUI;
 
-import com.minesweeper.Constants;
 import com.minesweeper.Field;
 
 import javax.swing.*;
@@ -54,11 +53,11 @@ public class SwingInterface extends JFrame {
         lBombCount.setForeground(Color.lightGray);
 
         JTextField boardSizeTF = new JTextField(3);
-        boardSizeTF.setText(Integer.toString(Constants.boardSize));
+       // boardSizeTF.setText(Integer.toString(Constants.boardSize));
         boardSizeTF.setBackground(Color.gray.brighter());
 
         JTextField bombCountTF = new JTextField(3);
-        bombCountTF.setText(Integer.toString(Constants.bombCount));
+       // bombCountTF.setText(Integer.toString(Constants.bombCount));
         bombCountTF.setBackground(Color.gray.brighter());
 
         pSettings.add(lBoardSize, setConstraints(c,0,0));
@@ -81,7 +80,7 @@ public class SwingInterface extends JFrame {
         pGame.setLayout(new BoxLayout(pGame, BoxLayout.PAGE_AXIS));
         pGame.add(tools());
         pGame.add(board());
-        pGame.setSize(new Dimension(20 + 18*Constants.boardSize, 55 + 18*Constants.boardSize));
+       // pGame.setSize(new Dimension(20 + 18*Constants.boardSize, 55 + 18*Constants.boardSize));
         setMenuBar();
         return pGame;
     }
@@ -152,7 +151,7 @@ public class SwingInterface extends JFrame {
 
     private JPanel board(){
         JPanel pBoard = new JPanel();
-        pBoard.setLayout(new GridLayout(Constants.boardSize, Constants.boardSize));
+      //  pBoard.setLayout(new GridLayout(Constants.boardSize, Constants.boardSize));
         try {
             for (JButton button : board.values()) {
                 pBoard.add(button);
@@ -165,7 +164,7 @@ public class SwingInterface extends JFrame {
     }
 
     public void refreshBombsCount(){
-        lBombs.setText(Integer.toString(Constants.bombCount - Constants.openedBomb));
+      //  lBombs.setText(Integer.toString(Constants.bombCount - Constants.openedBomb));
     }
 
     public void setBoard(Map<Point, Field> board){

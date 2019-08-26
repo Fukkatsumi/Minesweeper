@@ -2,6 +2,8 @@ package com.minesweeper;
 
 public class Action {
 
+    public static int turnNumber = 0;
+
     private boolean gameOver;
     private boolean winner;
     private Board board;

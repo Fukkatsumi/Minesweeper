@@ -1,7 +1,7 @@
 package com.minesweeper.Interface.Console;
 
+import com.minesweeper.Action;
 import com.minesweeper.Board;
-import com.minesweeper.Constants;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -59,7 +59,7 @@ public class Controller {
                 case "o":
                     if (!board.visible(field)) {
                         board.explore(field);
-                        Constants.turnNumber++;
+                        Action.turnNumber++;
                     } else {
                         view.showClicked();
                     }
@@ -67,7 +67,7 @@ public class Controller {
                 case "f":
                     if (!board.visible(field)) {
 //                        board.flag(field);
-                        Constants.turnNumber++;
+                        Action.turnNumber++;
 //                        if(board.isWinner()){
 //                            winner();
 //                        }
@@ -90,7 +90,7 @@ public class Controller {
             int x = Integer.parseInt(reader.readLine()) - 1;
             view.showGetY();
             int y = Integer.parseInt(reader.readLine()) - 1;
-            if (x >= 0 && x <= Constants.boardSize && y >= 0 && y <= Constants.boardSize) {
+            if (x >= 0 && x <= Board.boardSize && y >= 0 && y <= Board.boardSize) {
                 return new Point(x, y);
             }
             throw new NumberFormatException();
@@ -138,11 +138,11 @@ public class Controller {
             switch (reader.readLine()) {
                 case "s":
                     view.showBoardSizeInput();
-                    Constants.setBoardSize(Integer.parseInt(reader.readLine()));
+                    Board.setBoardSize(Integer.parseInt(reader.readLine()));
                     break;
                 case "c":
                     view.showBombCountInput();
-                    Constants.setBombCount(Integer.parseInt(reader.readLine()));
+                    Board.setBombCount(Integer.parseInt(reader.readLine()));
                     break;
                 case "q":
                     flag = true;

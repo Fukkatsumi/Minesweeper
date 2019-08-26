@@ -1,6 +1,7 @@
 package com.minesweeper.Interface.Console;
 
-import com.minesweeper.Constants;
+import com.minesweeper.Action;
+import com.minesweeper.Board;
 import com.minesweeper.Field;
 import com.minesweeper.Interface.GUI.SwingInterface;
 
@@ -34,18 +35,18 @@ public class View {
 
     public void showBoard(Map<Point, Field> map) {
         System.out.print("  ");
-        for(int i = 0; i < Constants.boardSize; i++){
+        for(int i = 0; i < Board.boardSize; i++){
             System.out.print((i+1) + " ");
         }
         System.out.print("\n");
-        for (int i = 0; i < Constants.boardSize; i++){
+        for (int i = 0; i < Board.boardSize; i++){
             System.out.print((i+1) + " ");
-            for (int j = 0; j < Constants.boardSize; j++){
+            for (int j = 0; j < Board.boardSize; j++){
                 Point p = new Point(i,j);
-                if(!map.get(p).isVisible()) {
-                    System.out.print(map.get(p).getState() + " ");
+                if(!map.get(p).isOpen()) {
+                    System.out.print(map.get(p).getState().getChar() + " ");
                 }else {
-                    System.out.print(map.get(p).getType() + " ");
+                    System.out.print(map.get(p).getType().getChar() + " ");
                 }
             }
             System.out.print("\n");
@@ -59,7 +60,7 @@ public class View {
     }
 
     public void showTurn(){
-        System.out.println("Turn " + Constants.turnNumber + ":");
+        System.out.println("Turn " + Action.turnNumber + ":");
     }
 
     public void showGetX() {
@@ -106,6 +107,6 @@ public class View {
         System.out.printf("Turns: %d\n" +
                 "==============> To exit press 'e'\n" +
                 "==============> To restart pGame press 'r'\n" +
-                "==============> To return to main pMenu press'm'\n", Constants.turnNumber);
+                "==============> To return to main pMenu press'm'\n", Action.turnNumber);
     }
 }
