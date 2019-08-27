@@ -8,12 +8,12 @@ public class Field {
 
         private char symbol;
 
-        Type(char symbol){
+        Type(char symbol) {
             this.symbol = symbol;
         }
 
-        public Type setNumber(int number){
-            if(this == NUMBER) {
+        public Type setNumber(int number) {
+            if (this == NUMBER) {
                 symbol = Integer.toString(number).charAt(0);
             }
             return this;
@@ -31,14 +31,14 @@ public class Field {
         }
     }
 
-    public enum State{
-        OPEN (' '),
-        HIDDEN ('*'),
-        CHECKED ('^');
+    public enum State {
+        OPEN(' '),
+        HIDDEN('*'),
+        MARKED('^');
 
         private char symbol;
 
-        State(char symbol){
+        State(char symbol) {
             this.symbol = symbol;
         }
 
@@ -65,20 +65,20 @@ public class Field {
         return state;
     }
 
-    public void check(){
-        if (this.state == State.HIDDEN){
-            this.state = State.CHECKED;
-        } else if (this.state == State.CHECKED){
+    public void mark() {
+        if (this.state == State.HIDDEN) {
+            this.state = State.MARKED;
+        } else if (this.state == State.MARKED) {
             this.state = State.HIDDEN;
         }
     }
 
-    public boolean isChecked(){
-        return state == State.CHECKED;
+    public boolean isMarked() {
+        return state == State.MARKED;
     }
 
-    public void open(){
-        if(state != State.CHECKED) {
+    public void open() {
+        if (state != State.MARKED) {
             state = State.OPEN;
         }
     }
@@ -87,11 +87,11 @@ public class Field {
         return state == State.OPEN;
     }
 
-    public boolean isBomb(){
+    public boolean isBomb() {
         return type == Type.BOMB;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return type == Type.EMPTY;
     }
 
