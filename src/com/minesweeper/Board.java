@@ -6,15 +6,10 @@ import java.util.Map;
 import java.util.Random;
 
 public class Board {
-    private final int DEFAULT_BOARD_SIZE = 9;
-    private final int DEFAULT_BOMBS_COUNT = 10;
-
     private Map<Point, Field> board;
-    private boolean detonatedAllBombs;
-    private int markedFieldsCount;
 
+    private final int DEFAULT_BOARD_SIZE = 9;
     private int boardSize = DEFAULT_BOARD_SIZE;
-    private int bombsCount = DEFAULT_BOMBS_COUNT;
 
     public void setBoardSize(int boardSize) {
         if (boardSize < DEFAULT_BOARD_SIZE) {
@@ -26,31 +21,6 @@ public class Board {
 
     public int getBoardSize() {
         return boardSize;
-    }
-
-    public void setBombsCount(int bombsCount) {
-        if (bombsCount < DEFAULT_BOMBS_COUNT) {
-            this.bombsCount = DEFAULT_BOMBS_COUNT;
-            return;
-        }
-        this.bombsCount = bombsCount;
-    }
-
-    public int getBombsCount() {
-        return bombsCount;
-    }
-
-    private void setBombs() {
-        int count = 0;
-        do {
-            Random r = new Random();
-            int x = r.nextInt(boardSize);
-            int y = r.nextInt(boardSize);
-            if (!board.containsKey(new Point(x, y))) {
-                board.put(new Point(x, y), new Field(Field.Type.BOMB));
-                count++;
-            }
-        } while (count != bombsCount);
     }
 
     /**
@@ -94,26 +64,12 @@ public class Board {
         }
     }
 
-    void explore(Point p) {
-        Field currentField = board.get(p);
-        if (!currentField.isOpen()) {
-            if (!currentField.isBomb()) {
-                currentField.open();
-                if (currentField.isEmpty()) {
-                    exploreNearby(p);
-                }
-            } else {
-                detonateAllBombs();
-            }
-        }
-    }
-
     /**
      * Finding point to explore
      * (x-1,y-1) (x,y-1) (x+1,y-1)
      * (x-1,y)   (x,y)   (x+1,y)
      * (x-1,y+1) (x,y+1) (x+1,y+1)
-     *
+     * <p>
      * Used recursively when method explore(Point) finds empty fields
      */
     private void exploreNearby(Point p) {
@@ -133,6 +89,40 @@ public class Board {
             }
         }
     }
+
+    private final int DEFAULT_BOMBS_COUNT = 10;
+    private int bombsCount = DEFAULT_BOMBS_COUNT;
+
+    public void setBombsCount(int bombsCount) {
+        if (bombsCount < DEFAULT_BOMBS_COUNT) {
+            this.bombsCount = DEFAULT_BOMBS_COUNT;
+            return;
+        }
+        this.bombsCount = bombsCount;
+    }
+
+    public int getBombsCount() {
+        return bombsCount;
+    }
+
+    private void setBombs() {
+        int count = 0;
+        do {
+            Random r = new Random();
+            int x = r.nextInt(boardSize);
+            int y = r.nextInt(boardSize);
+            if (!board.containsKey(new Point(x, y))) {
+                board.put(new Point(x, y), new Field(Field.Type.BOMB));
+                count++;
+            }
+        } while (count != bombsCount);
+    }
+
+    public boolean isDefusedAllBombs() {
+        return calculateDefusedBombs() == bombsCount;
+    }
+
+    private int markedFieldsCount;
 
     public void defuseBomb(Point p) {
         Field field = board.get(p);
@@ -160,9 +150,21 @@ public class Board {
         return defusedBombs;
     }
 
-    public boolean isDefusedAllBombs() {
-        return calculateDefusedBombs() == bombsCount;
+    void explore(Point p) {
+        Field currentField = board.get(p);
+        if (!currentField.isOpen()) {
+            if (!currentField.isBomb()) {
+                currentField.open();
+                if (currentField.isEmpty()) {
+                    exploreNearby(p);
+                }
+            } else {
+                detonateAllBombs();
+            }
+        }
     }
+
+    private boolean detonatedAllBombs;
 
     private void detonateAllBombs() {
         for (Field field : board.values()) {
