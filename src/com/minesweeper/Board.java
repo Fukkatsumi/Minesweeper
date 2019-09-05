@@ -3,20 +3,26 @@ package com.minesweeper;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 public class Board {
-    private Map<Point, Field> board;
+    private static Map<Point, Field> board;
 
-    private final int DEFAULT_BOARD_SIZE = 9;
-    private int boardSize = DEFAULT_BOARD_SIZE;
+    private static final int DEFAULT_MIN_BOARD_SIZE = 4;
+    private static final int DEFAULT_MAX_BOARD_SIZE = 15;
+    private static int boardSize = DEFAULT_MIN_BOARD_SIZE;
 
     public void setBoardSize(int boardSize) {
-        if (boardSize < DEFAULT_BOARD_SIZE) {
-            this.boardSize = DEFAULT_BOARD_SIZE;
+        if (boardSize < DEFAULT_MIN_BOARD_SIZE) {
+            Board.boardSize = DEFAULT_MIN_BOARD_SIZE;
             return;
         }
-        this.boardSize = boardSize;
+        if (boardSize > DEFAULT_MAX_BOARD_SIZE) {
+            Board.boardSize = DEFAULT_MAX_BOARD_SIZE;
+            return;
+        }
+        Board.boardSize = boardSize;
     }
 
     public int getBoardSize() {
@@ -49,7 +55,8 @@ public class Board {
         return bombsCount;
     }
 
-    void fill() {
+    public void fill() {
+        board = new HashMap<>();
         setBombs();
         Point p;
         for (int i = 0; i < boardSize; i++) {
@@ -57,7 +64,7 @@ public class Board {
                 p = new Point(i, j);
                 if (!board.containsKey(p)) {
                     int bombsCount = bombsNearbyCount(p);
-                    Field field = bombsCount > 0 ? new Field(Field.Type.NUMBER.setNumber(bombsCount)) : new Field(Field.Type.EMPTY);
+                    Field field = bombsCount > 0 ? new Field(Field.Type.NUMBER, bombsCount) : new Field(Field.Type.EMPTY);
                     board.put(p, field);
                 }
             }
@@ -90,15 +97,20 @@ public class Board {
         }
     }
 
-    private final int DEFAULT_BOMBS_COUNT = 10;
-    private int bombsCount = DEFAULT_BOMBS_COUNT;
+    private static final int DEFAULT_MIN_BOMBS_COUNT = 6;
+    private static int bombsCount = DEFAULT_MIN_BOMBS_COUNT;
 
     public void setBombsCount(int bombsCount) {
-        if (bombsCount < DEFAULT_BOMBS_COUNT) {
-            this.bombsCount = DEFAULT_BOMBS_COUNT;
+        if (bombsCount < DEFAULT_MIN_BOMBS_COUNT) {
+            Board.bombsCount = DEFAULT_MIN_BOMBS_COUNT;
             return;
         }
-        this.bombsCount = bombsCount;
+        int maxBombsCount = boardSize * boardSize / 2;
+        if (bombsCount > maxBombsCount) {
+            Board.bombsCount = maxBombsCount;
+            return;
+        }
+        Board.bombsCount = bombsCount;
     }
 
     public int getBombsCount() {
@@ -150,7 +162,7 @@ public class Board {
         return defusedBombs;
     }
 
-    void explore(Point p) {
+    public void explore(Point p) {
         Field currentField = board.get(p);
         if (!currentField.isOpen()) {
             if (!currentField.isBomb()) {
@@ -180,11 +192,39 @@ public class Board {
     }
 
     public Map<Point, Field> getBoard() {
-        return this.board;
+        return board;
     }
 
     public Board() {
-        this.board = new HashMap<>();
+        board = new HashMap<>();
+    }
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "board=" + board +
+                ", DEFAULT_MIN_BOARD_SIZE=" + DEFAULT_MIN_BOARD_SIZE +
+                ", DEFAULT_MAX_BOARD_SIZE=" + DEFAULT_MAX_BOARD_SIZE +
+                ", boardSize=" + boardSize +
+                ", DEFAULT_MIN_BOMBS_COUNT=" + DEFAULT_MIN_BOMBS_COUNT +
+                ", bombsCount=" + bombsCount +
+                ", markedFieldsCount=" + markedFieldsCount +
+                ", detonatedAllBombs=" + detonatedAllBombs +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Board)) return false;
+        Board board = (Board) o;
+        return markedFieldsCount == board.markedFieldsCount &&
+                detonatedAllBombs == board.detonatedAllBombs;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(markedFieldsCount, detonatedAllBombs);
     }
 }
 
