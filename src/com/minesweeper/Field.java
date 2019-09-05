@@ -1,5 +1,7 @@
 package com.minesweeper;
 
+import java.util.Objects;
+
 public class Field {
     public enum State {
         OPEN(' '),
@@ -53,40 +55,12 @@ public class Field {
     }
 
     public enum Type {
-        NUMBER('0'),
-        BOMB('b'),
-        EMPTY('_');
-
-        private char symbol;
-
-        Type(char symbol) {
-            this.symbol = symbol;
-        }
-
-        public Type setNumber(int number) {
-            if (this == NUMBER) {
-                symbol = Integer.toString(number).charAt(0);
-            }
-            return this;
-        }
-
-        public char getChar() {
-            return symbol;
-        }
-
-        @Override
-        public String toString() {
-            return "Type{" +
-                    "symbol='" + symbol + '\'' +
-                    '}';
-        }
+        NUMBER,
+        BOMB,
+        EMPTY
     }
 
     private Type type;
-
-    public Type getType() {
-        return type;
-    }
 
     public boolean isBomb() {
         return type == Type.BOMB;
@@ -96,7 +70,48 @@ public class Field {
         return type == Type.EMPTY;
     }
 
+    private char typeValue;
+
+    public char getTypeValue() {
+        return typeValue;
+    }
+
     public Field(Type type) {
         this.type = type;
+        if (type == Type.EMPTY) {
+            this.typeValue = '_';
+        } else if (type == Type.BOMB) {
+            this.typeValue = 'b';
+        }
+    }
+
+    public Field(Type type, int number) {
+        this.type = type;
+        this.typeValue = Integer.toString(number).charAt(0);
+    }
+
+    @Override
+    public String toString() {
+        return "Field{" +
+                "state=" + state.toString() +
+                ", state value=" + state.getChar() +
+                ", type=" + type.toString() +
+                ", type value=" + typeValue +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Field)) return false;
+        Field field = (Field) o;
+        return typeValue == field.typeValue &&
+                state == field.state &&
+                type == field.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(state, type, typeValue);
     }
 }
