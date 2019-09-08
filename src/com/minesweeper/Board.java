@@ -176,19 +176,21 @@ public class Board {
         }
     }
 
-    private boolean detonatedAllBombs;
-
     private void detonateAllBombs() {
         for (Field field : board.values()) {
             if (field.isBomb()) {
                 field.open();
             }
         }
-        detonatedAllBombs = true;
     }
 
     public boolean isDetonatedAllBombs() {
-        return detonatedAllBombs;
+        for (Field field : board.values()) {
+            if (field.isBomb() && field.isOpen()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Map<Point, Field> getBoard() {
@@ -209,7 +211,6 @@ public class Board {
                 ", DEFAULT_MIN_BOMBS_COUNT=" + DEFAULT_MIN_BOMBS_COUNT +
                 ", bombsCount=" + bombsCount +
                 ", markedFieldsCount=" + markedFieldsCount +
-                ", detonatedAllBombs=" + detonatedAllBombs +
                 '}';
     }
 
@@ -218,13 +219,12 @@ public class Board {
         if (this == o) return true;
         if (!(o instanceof Board)) return false;
         Board board = (Board) o;
-        return markedFieldsCount == board.markedFieldsCount &&
-                detonatedAllBombs == board.detonatedAllBombs;
+        return markedFieldsCount == board.markedFieldsCount;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(markedFieldsCount, detonatedAllBombs);
+        return Objects.hash(markedFieldsCount);
     }
 }
 
