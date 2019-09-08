@@ -7,11 +7,13 @@ import com.minesweeper.Field;
 import java.awt.*;
 
 
-public class Console extends ConsoleInterface implements Controller {
+public class Console implements Controller {
+    private ConsoleInterface view = new ConsoleInterface();
+
     @Override
     public void menu() {
         while (true) {
-            menuInterface();
+            view.menuInterface();
             SystemInputListener.inputHandler(Source.MENU);
         }
     }
@@ -19,7 +21,7 @@ public class Console extends ConsoleInterface implements Controller {
     @Override
     public void settings() {
         while (true) {
-            settingsInterface();
+            view.settingsInterface();
             SystemInputListener.inputHandler(Source.SETTINGS);
         }
     }
@@ -30,8 +32,8 @@ public class Console extends ConsoleInterface implements Controller {
     public void game() {
         newGame();
         while (true) {
-            setBoard(gameBoard.getBoard());
-            gameInterface();
+            view.setBoard(gameBoard.getBoard());
+            view.gameInterface();
             if (gameBoard.isDetonatedAllBombs()) {
                 lose();
             } else if (gameBoard.isDefusedAllBombs()) {
@@ -44,24 +46,24 @@ public class Console extends ConsoleInterface implements Controller {
 
     private void newGame() {
         gameBoard.fill();
-        getBoardSizeToShow(gameBoard.getBoardSize());
-        getBombsCountToShow(gameBoard.getBombsCount());
+        view.getBoardSizeToShow(gameBoard.getBoardSize());
+        view.getBombsCountToShow(gameBoard.getBombsCount());
     }
 
     private void lose() {
-        showGameOver();
+        view.showGameOver();
         SystemInputListener.inputHandler(Source.GAME_ENDING);
     }
 
     private void win() {
-        showWin();
+        view.showWin();
         SystemInputListener.inputHandler(Source.GAME_ENDING);
     }
 
     private void turn() {
         Point currentPoint = setPointFromConsole();
         if (correctRange(currentPoint)) {
-            showGameActions();
+            view.showGameActions();
             SystemInputListener.inputHandler(Source.GAME_ACTION);
             int action = SystemInputListener.getGameAction();
             if (action == 1) {
@@ -69,19 +71,19 @@ public class Console extends ConsoleInterface implements Controller {
             } else if (action == 0) {
                 markField(currentPoint);
             } else {
-                showError();
+                view.showError();
             }
         } else {
-            showError();
+            view.showError();
         }
     }
 
     private Point setPointFromConsole() {
-        showGetX();
+        view.showGetX();
         int inputNumber = SystemInputListener.numberInputHandler();
         Point p = new Point();
         p.y = inputNumber - 1;
-        showGetY();
+        view.showGetY();
         inputNumber = SystemInputListener.numberInputHandler();
         p.x = inputNumber - 1;
         return p;
@@ -94,10 +96,10 @@ public class Console extends ConsoleInterface implements Controller {
     private void openField(Point p) {
         Field field = gameBoard.getBoard().get(p);
         if (field.isOpen()) {
-            showCantMarkField();
+            view.showCantMarkField();
         }
         if (field.isMarked()) {
-            showCantOpenField();
+            view.showCantOpenField();
         } else {
             gameBoard.explore(p);
         }
@@ -105,38 +107,38 @@ public class Console extends ConsoleInterface implements Controller {
 
     private void markField(Point p) {
         if (gameBoard.getBoard().get(p).isOpen()) {
-            showCantMarkField();
+            view.showCantMarkField();
         }
         gameBoard.defuseBomb(p);
     }
 
     public void setupBombsCount() {
-        showBombCountInput();
+        view.showBombCountInput();
         int inputNumber = SystemInputListener.numberInputHandler();
         if (inputNumber == -1) {
-            showError();
+            view.showError();
         } else {
             gameBoard.setBombsCount(inputNumber);
-            getBombsCountToShow(gameBoard.getBombsCount());
-            showActualBombsCount();
+            view.getBombsCountToShow(gameBoard.getBombsCount());
+            view.showActualBombsCount();
         }
     }
 
     public void setupBoardSize() {
-        showBoardSizeInput();
+        view.showBoardSizeInput();
         int inputNumber = SystemInputListener.numberInputHandler();
         if (inputNumber == -1) {
-            showError();
+            view.showError();
         } else {
             gameBoard.setBoardSize(inputNumber);
-            getBoardSizeToShow(gameBoard.getBoardSize());
-            showActualBoardSize();
+            view.getBoardSizeToShow(gameBoard.getBoardSize());
+            view.showActualBoardSize();
         }
     }
 
     public void exit() {
         while (true) {
-            showExit();
+            view.showExit();
             SystemInputListener.inputHandler(Source.EXIT);
         }
     }
