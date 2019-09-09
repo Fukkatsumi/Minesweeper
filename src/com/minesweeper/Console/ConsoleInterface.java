@@ -22,7 +22,7 @@ public class ConsoleInterface implements View {
                 "==Input any symbol to return to menu==");
     }
 
-    void showWin() {
+    void showVictory() {
         System.out.println("============== You Win! ==============\n" +
                 "==Input any symbol to return to menu==");
     }

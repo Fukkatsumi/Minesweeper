@@ -35,7 +35,7 @@ public class SystemInputListener {
         return in;
     }
 
-    private static Console console = new Console();
+    private static ConsoleGame console = new ConsoleGame();
 
     private static void menuHandler() {
         char in;

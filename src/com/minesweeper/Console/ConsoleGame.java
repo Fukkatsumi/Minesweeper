@@ -7,7 +7,7 @@ import com.minesweeper.Field;
 import java.awt.*;
 
 
-public class Console implements Controller {
+public class ConsoleGame extends Controller {
     private ConsoleInterface view = new ConsoleInterface();
 
     @Override
@@ -35,9 +35,9 @@ public class Console implements Controller {
             view.setBoard(gameBoard.getBoard());
             view.gameInterface();
             if (gameBoard.isDetonatedAllBombs()) {
-                lose();
+                losing();
             } else if (gameBoard.isDefusedAllBombs()) {
-                win();
+                victory();
             } else {
                 turn();
             }
@@ -50,13 +50,13 @@ public class Console implements Controller {
         view.getBombsCountToShow(gameBoard.getBombsCount());
     }
 
-    private void lose() {
+    private void losing() {
         view.showGameOver();
         SystemInputListener.inputHandler(Source.GAME_ENDING);
     }
 
-    private void win() {
-        view.showWin();
+    private void victory() {
+        view.showVictory();
         SystemInputListener.inputHandler(Source.GAME_ENDING);
     }
 
