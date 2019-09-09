@@ -1,7 +1,6 @@
 package com.minesweeper;
 
-import com.minesweeper.Interface.Console.Controller;
-import com.minesweeper.Interface.GUI.SwingInterface;
+import com.minesweeper.Swing.SwingGame;
 
 import javax.swing.*;
 
@@ -11,14 +10,12 @@ import javax.swing.*;
  */
 
 public class Minesweeper {
-    public static SwingInterface uSwingInterface;
-    public static Controller game;
-    public static void main(String... args){
+    public static SwingGame game;
+
+    public static void main(String... args) {
         SwingUtilities.invokeLater(() -> {
-            game = new Controller();
-            uSwingInterface = new SwingInterface();
-            uSwingInterface.setView(uSwingInterface.pMenu());
+            game = new SwingGame();
+            game.menu();
         });
     }
-
 }
