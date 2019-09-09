@@ -1,9 +1,9 @@
 package com.minesweeper;
 
-public interface Controller {
-    void menu();
+public abstract class Controller {
+    public abstract void menu();
 
-    void settings();
+    public abstract void settings();
 
-    void game();
+    public abstract void game();
 }
