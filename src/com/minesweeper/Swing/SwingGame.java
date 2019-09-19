@@ -90,6 +90,7 @@ public class SwingGame extends Controller {
             view.setBombsCount(oldBombsCount);
             view.showWarningDialog();
         }
+        view.disableSetupButton();
     }
 
     private boolean correctInput(String s) {
