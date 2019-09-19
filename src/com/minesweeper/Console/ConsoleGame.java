@@ -36,7 +36,7 @@ public class ConsoleGame extends Controller {
             view.gameInterface();
             if (gameBoard.isDetonatedAllBombs()) {
                 losing();
-            } else if (gameBoard.isDefusedAllBombs()) {
+            } else if (gameBoard.isDefusedAllBombs() && gameBoard.isOpenedAllSafeArea()) {
                 victory();
             } else {
                 turn();

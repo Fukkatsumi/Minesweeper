@@ -61,7 +61,7 @@ public class SwingGame extends Controller {
     }
 
     private void checkVictory() {
-        if (gameBoard.isDefusedAllBombs()) {
+        if (gameBoard.isDefusedAllBombs() && gameBoard.isOpenedAllSafeArea()) {
             view.showVictoryDialog();
         }
     }
