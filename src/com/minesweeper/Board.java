@@ -148,6 +148,16 @@ public class Board {
         }
     }
 
+    public boolean isOpenedAllSafeArea() {
+        int safeFieldsCount = board.size() - bombsCount;
+        for (Field field : board.values()) {
+            if (field.isOpen()) {
+                safeFieldsCount--;
+            }
+        }
+        return safeFieldsCount == 0;
+    }
+
     private int calculateDefusedBombs() {
         markedFieldsCount = 0;
         int defusedBombs = 0;
