@@ -4,6 +4,8 @@ import com.minesweeper.Field;
 import com.minesweeper.View;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.plaf.metal.MetalButtonUI;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -138,6 +140,32 @@ public class SwingInterface extends JFrame implements View {
         return bombsCountTF.getText();
     }
 
+    private JButton btnSetup;
+
+    public void disableSetupButton() {
+        btnSetup.setEnabled(false);
+        btnSetup.setBackground(Color.GRAY.brighter());
+    }
+
+    private DocumentListener listener = new DocumentListener() {
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            btnSetup.setEnabled(true);
+            btnSetup.setBackground(Color.CYAN.darker());
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            btnSetup.setEnabled(true);
+            btnSetup.setBackground(Color.CYAN.darker());
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+
+        }
+    };
+
     private JPanel pSettings() {
         JPanel pSettings = new JPanel();
         pSettings.setLayout(new GridBagLayout());
@@ -150,14 +178,19 @@ public class SwingInterface extends JFrame implements View {
         lBombCount.setForeground(Color.lightGray);
 
         boardSizeTF.setBackground(Color.gray.brighter());
+        boardSizeTF.getDocument().addDocumentListener(listener);
 
         bombsCountTF.setBackground(Color.gray.brighter());
+        bombsCountTF.getDocument().addDocumentListener(listener);
+
+        btnSetup = button("Setup");
+        btnSetup.setEnabled(true);
 
         pSettings.add(lBoardSize, setConstraints(c, 0, 0));
         pSettings.add(lBombCount, setConstraints(c, 0, 1));
         pSettings.add(boardSizeTF, setConstraints(c, 1, 0));
         pSettings.add(bombsCountTF, setConstraints(c, 1, 1));
-        pSettings.add(button("Setup"), setConstraints(c, 0, 2));
+        pSettings.add(btnSetup, setConstraints(c, 0, 2));
         pSettings.add(button("Back"), setConstraints(c, 1, 2));
 
         pSettings.setBackground(Color.darkGray);
