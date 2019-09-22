@@ -9,7 +9,7 @@ import java.util.Random;
 public class Board {
     private static Map<Point, Field> board;
 
-    private static final int DEFAULT_MIN_BOARD_SIZE = 4;
+    private static final int DEFAULT_MIN_BOARD_SIZE = 8;
     private static final int DEFAULT_MAX_BOARD_SIZE = 15;
     private static int boardSize = DEFAULT_MIN_BOARD_SIZE;
 
@@ -105,7 +105,7 @@ public class Board {
             Board.bombsCount = DEFAULT_MIN_BOMBS_COUNT;
             return;
         }
-        int maxBombsCount = boardSize * boardSize / 2;
+        int maxBombsCount = (boardSize * boardSize) / 5;
         if (bombsCount > maxBombsCount) {
             Board.bombsCount = maxBombsCount;
             return;
