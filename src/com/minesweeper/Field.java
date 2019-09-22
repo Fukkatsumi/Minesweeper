@@ -5,8 +5,8 @@ import java.util.Objects;
 public class Field {
     public enum State {
         OPEN(' '),
-        HIDDEN('*'),
-        MARKED('^');
+        HIDDEN('\u22A0'),
+        MARKED('\u2691');
 
         private char symbol;
 
@@ -81,7 +81,7 @@ public class Field {
         if (type == Type.EMPTY) {
             this.typeValue = '_';
         } else if (type == Type.BOMB) {
-            this.typeValue = 'b';
+            this.typeValue = '\u25CF';
         }
     }
 
