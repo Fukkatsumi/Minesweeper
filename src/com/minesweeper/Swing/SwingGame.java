@@ -95,7 +95,6 @@ public class SwingGame extends Controller {
 
     private boolean correctInput(String s) {
         String regex = "\\d+";
-        String input = s;
-        return input.matches(regex);
+        return s.matches(regex);
     }
 }

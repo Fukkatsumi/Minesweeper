@@ -109,7 +109,7 @@ public class ConsoleInterface implements View {
 
     @Override
     public void menuInterface() {
-        System.out.println("============== Minesweeper ver.1.0 ==============\n" +
+        System.out.println("============== Minesweeper ver.3.1 ==============\n" +
                 "==============> To start new game press 'n'\n" +
                 "==============> To change settings press 's'\n" +
                 "==============> To exit press 'e'");

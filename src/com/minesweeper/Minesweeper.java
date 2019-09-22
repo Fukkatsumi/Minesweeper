@@ -5,12 +5,12 @@ import com.minesweeper.Swing.SwingGame;
 import javax.swing.*;
 
 /**
- * Minesweeper ver.3.0
+ * Minesweeper ver.3.1
  * created by Fukkatsumi
  */
 
 public class Minesweeper {
-    public static SwingGame game;
+    public static Controller game;
 
     public static void main(String... args) {
         SwingUtilities.invokeLater(() -> {

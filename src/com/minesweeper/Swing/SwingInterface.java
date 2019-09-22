@@ -41,7 +41,7 @@ public class SwingInterface extends JFrame implements View {
     private JFrame GUIframe;
 
     public SwingInterface() {
-        GUIframe = new JFrame("Minesweeper ver.2.0");
+        GUIframe = new JFrame("Minesweeper ver.3.1");
         GUIframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
@@ -69,6 +69,7 @@ public class SwingInterface extends JFrame implements View {
         GUIframe.setContentPane(panel);
         GUIframe.setSize(panel.getSize());
         GUIframe.setLocationRelativeTo(null);
+        GUIframe.setResizable(false);
         GUIframe.setVisible(true);
     }
 
@@ -260,7 +261,11 @@ public class SwingInterface extends JFrame implements View {
                         return Color.black;
                     }
                 });
-                b.setText(Character.toString(f.getTypeValue()));
+                if (f.isEmpty()) {
+                    b.setText("");
+                } else {
+                    b.setText(Character.toString(f.getTypeValue()));
+                }
             } else if (f.isMarked()) {
                 b.setBackground(Color.cyan.darker());
                 b.setText(Character.toString(f.getState().getChar()));
@@ -299,15 +304,13 @@ public class SwingInterface extends JFrame implements View {
         for (Point p : board.keySet()) {
             JButton button = new JButton();
             button.addMouseListener(new MouseListener() {
-                private SwingGame s = controller;
-
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     if (e.getButton() == MouseEvent.BUTTON1) {
-                        s.openField();
+                        controller.openField();
                     }
                     if (e.getButton() == MouseEvent.BUTTON3) {
-                        s.markField();
+                        controller.markField();
                     }
                 }
 
