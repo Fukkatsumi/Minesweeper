@@ -271,6 +271,13 @@ public class SwingInterface extends JFrame implements View {
         }
     }
 
+    private void disableBoard(){
+        for (JButton b: board.values()){
+            for (MouseListener l : b.getMouseListeners())
+            b.removeMouseListener(l);
+        }
+    }
+
     private Point p = new Point();
 
     public Point getP() {
@@ -330,10 +337,12 @@ public class SwingInterface extends JFrame implements View {
     }
 
     public void showVictoryDialog() {
+        disableBoard();
         createDialog("Victory", "Go to menu", "You win!");
     }
 
     public void showLosingDialog() {
+        disableBoard();
         createDialog("Losing", "Go to menu", "You lose!");
     }
 
